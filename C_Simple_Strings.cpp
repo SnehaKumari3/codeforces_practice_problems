@@ -44,11 +44,30 @@ int main()
 {
     FAST;
     // your code goes here
-    ll t=1;
-    // cin>>n;
-    while(t--){
-        
+    string s;
+    cin>>s;
+    ll i=0;
+    while(i<sz(s)-2){
+        if(s[i]==s[i+1]){
+            for(char ch='a';ch<='z';ch++){
+                if(ch!=s[i+2] && ch!=s[i]){
+                    s[i+1]=ch;
+                    break;
+                }
+            }
+        }
+        i++;
     }
+    ll l=sz(s);
+    if(s[l-1]==s[l-2] && l-2>=0){
+        for(char ch='a';ch<='z';ch++){
+                if(ch!=s[l-1]){
+                    s[l-1]=ch;
+                    break;
+                }
+            }
+    }
+    cout<<s;
     
     return 0;
 }

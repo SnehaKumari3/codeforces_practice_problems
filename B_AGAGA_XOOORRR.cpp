@@ -44,11 +44,38 @@ int main()
 {
     FAST;
     // your code goes here
-    ll t=1;
-    // cin>>n;
+    ll t;
+    cin>>t;
     while(t--){
-        
+        ll n;
+        cin>>n;
+        vl v(n);
+        rep(i,0,n){
+            cin>>v[i];
+        }
+        bool ok=true;
+        rep(i,0,n){
+            ok=false;
+            ll x=0,y=0;
+            rep(j,0,i+1){
+                x=x^v[j];
+            }
+            rep(j,i+1,n){
+                y^=v[j];
+                if(x==y){
+                    ok=true;
+                    y=0;
+                }
+            }
+
+            if(ok && y==0){
+                cout<<"YES"<<endl;
+                break;
+            }
+        }
+        if(!ok){
+            cout<<"NO"<<endl;
+        }
     }
-    
     return 0;
 }

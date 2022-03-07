@@ -44,11 +44,36 @@ int main()
 {
     FAST;
     // your code goes here
-    ll t=1;
-    // cin>>n;
-    while(t--){
-        
+    ll n,k,ans=0;
+    cin>>n>>k;
+    vl a(n),s(n);
+    rep(i,0,n){
+        cin>>a[i];
     }
+    rep(i,0,n){
+        cin>>s[i];
+        if(s[i]==1){
+            ans+=a[i];
+        }
+    }
+    vl t(n,0);
+    if(s[0]==0){
+        t[0]=a[0];
+    }
+    rep(i,1,n){
+        if(s[i]==1){
+            t[i]=t[i-1];
+        }
+        else{
+            t[i]=t[i-1]+a[i];
+        }
+    }
+    ll res=0;
+    res=t[min(k-1,n-1)];
+    rep(i,1,n){
+        res=max(res,t[min(i+k-1,n-1)]-t[i-1]);
+    }
+    cout<<ans+res;
     
     return 0;
 }

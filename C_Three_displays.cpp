@@ -29,6 +29,7 @@ typedef map<string, string> mss;
 #define se second
 #define in insert
 #define mp make_pair
+#define ln "\n"
 #define rep(i, a, n) for (ll i = a; i < n; i++)
 #define repr(i, n, b) for (ll i = n; i > b; i--)
 #define repv(v) for (auto x : v)
@@ -46,25 +47,38 @@ int main()
     // your code goes here
     ll n;
     cin>>n;
-    vl a,b;
+    vl v(n),c(n);
     rep(i,0,n){
-        cin>>a[i];
+        cin>>v[i];
     }
     rep(i,0,n){
-        cin>>b[i];
+        cin>>c[i];
     }
-    vl ans;
-    bool ok=true;
-    for(ll i=0;i<n-2 && ok;i++){
-        for(ll j=i+1;j<n-1 && ok;j++){
-            if(v[j]>v[i]){
-                for(ll k=j+1;j<n;j++){
-                    if(v[k]>v[j]){
+    int64_t ans=INT_MAX;
+    
+    ll dp[n][3];
+    rep(i,0,n){
+        rep(j,0,3){
+            dp[i][j]=ans;
+        }
+    }
 
-                    }
-                }
+    rep(i,0,n){
+        dp[i][0]=c[i];
+        rep(j,0,i){
+            if(v[j]<v[i]){
+                dp[i][1]=min(dp[i][1],dp[j][0]+c[i]);
+                dp[i][2]=min(dp[i][2],dp[j][1]+c[i]);
             }
         }
+        ans=min(ans,dp[i][2]);
+    }
+
+    if(ans==INT_MAX){
+        cout<<-1;
+    }
+    else{
+        cout<<ans;
     }
     
     return 0;

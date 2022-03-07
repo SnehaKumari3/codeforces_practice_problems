@@ -44,11 +44,39 @@ int main()
 {
     FAST;
     // your code goes here
-    ll t=1;
-    // cin>>n;
-    while(t--){
+    ll n;
+    cin>>n;
+    vector<pair<string,ll>> v;
+    v.pb({"A",3*1e5+9});
+    v.pb({"B",3*1e5+9});
+    v.pb({"C",3*1e5+9});
+    v.pb({"AB",3*1e5+9});
+    v.pb({"BC",3*1e5+9});
+    v.pb({"AC",3*1e5+9});
+    v.pb({"ABC",3*1e5+9});
+    sort(all(v));
+    rep(i,0,n){
+        string s;
+        ll tmp;
+        cin>>tmp>>s;
+        sort(all(s));
+        rep(j,0,sz(v)){
+            if(s.find(v[j].fi)!=string::npos){
+                v[j].se=min(v[j].se,tmp);
+            }
+        }
         
     }
-    
+    if(v[0].se==(3*1e5+9)||v[4].se==(3*1e5+9)||v[6].se==(3*1e5+9)){
+        cout<<-1;
+    }
+    else{
+    ll res=v[0].se+v[4].se+v[6].se;
+    res=min(res,v[2].se);
+    res=min(res,v[1].se+v[6].se);
+    res=min(res,v[3].se+v[4].se);
+    res=min(res,v[5].se+v[0].se);
+    cout<<res;
+    }
     return 0;
 }

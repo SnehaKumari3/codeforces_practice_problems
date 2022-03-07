@@ -45,10 +45,40 @@ int main()
     FAST;
     // your code goes here
     ll t=1;
-    // cin>>n;
+    cin>>t;
     while(t--){
+        ll n,m,k;
+        cin>>n>>m>>k;
+        ll a[n][m];
+        rep(i,0,n){
+            rep(j,0,m){
+                a[i][j]=INT_MAX;
+            }
+        }
+        a[0][0]=0;
+        rep(i,0,n){
+            rep(j,0,m){
+                if(i+1<n){
+                    a[i+1][j]=min(a[i+1][j],a[i][j]+j+1);
+                }
+                if(j+1<m){
+                    a[i][j+1]=min(a[i][j+1],a[i][j]+i+1);
+                }
+                
+            }
+            
+        }
+
         
+        if(a[n-1][m-1]==k){
+            cout<<"YES"<<endl;
+        }
+        else{
+            cout<<"NO"<<endl;
+        }
+
     }
+
     
     return 0;
 }

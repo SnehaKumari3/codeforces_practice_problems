@@ -45,10 +45,34 @@ int main()
     FAST;
     // your code goes here
     ll t=1;
-    // cin>>n;
+    cin>>t;
     while(t--){
-        
+        ll n;
+        cin>>n;
+        vl v(n);
+        rep(i,0,n){
+            cin>>v[i];
+        }
+        ll tmp=0,i=0,s=0;
+        while(i<n){
+            tmp=v[i];
+            if(v[i]>0){
+                i++;
+                while(v[i]>0 && i<n){
+                    tmp=max(tmp,v[i]);
+                    i++;
+                }
+            }
+            else{
+                i++;
+                while(v[i]<0 && i<n){
+                    tmp=max(tmp,v[i]);
+                    i++;
+                }
+            }
+            s+=tmp;
+        }
+        cout<<s<<endl;
     }
-    
     return 0;
 }
