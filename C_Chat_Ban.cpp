@@ -39,12 +39,22 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
+ll solve(ll a,ll s,ll d,ll k){
+    ll i=1,j=k;
+    ll ans=k;
+    while(i<=j){
+        ll mid=i+(j-i)/2;
+        ll sum=(mid*(2*a+(mid-1)*d))/2;
+        
+        if(sum<=s){
+            i=mid+1;
+        }
+        else{
+            ans=min(ans,mid);
+            j=mid-1;
+        }
     }
-    return true;
+    return ans;
 }
 
 int main()
@@ -54,34 +64,35 @@ int main()
     ll t=1;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
-        vl v(n);
-        vpll a;
-        rep(i,0,n){
-            cin>>v[i];
+        ll k,x;
+        cin>>k>>x;
+        ll ans=0;
+        int64_t m1=k*k;
+        int64_t m2=(k*(k+1))/2;
+        if(x>=m1){
+            ans=(2*k)-1;
         }
-        if(isal(v)){
-            cout<<0<<endl;
+        else if(x>m2){
+            ans+=k;
+            x-=m2;
+            ll t=solve(k-1,x,-1,k-1)-1;
+            x-=(t*(2*(k-1)+(t-1)*-1))/2;
+            ans+=t;
+            if(x>0){
+                ans++;
+            }
         }
         else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
+            ll t=solve(1,x,1,k)-1;
+            x-=(t*(2+(t-1)))/2;
+            ans+=t;
+            if(x>0){
+                ans++;
             }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
-                }
-            }
-            else{
-                cout<<-1<<endl;
-            }
-
         }
         
-         
+        cout<<ans<<endl;
     }
-
+    
     return 0;
 }

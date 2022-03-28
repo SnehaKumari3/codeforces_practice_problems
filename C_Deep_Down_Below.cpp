@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <algorithm>
 using namespace std;
 
 typedef long long ll;
@@ -39,12 +40,11 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
-    }
-    return true;
+
+bool compare(vl a,vl b){
+    ll m1=*max_element(all(a));
+    ll m2=*max_element(all(b));
+    return m1>m2;
 }
 
 int main()
@@ -56,32 +56,35 @@ int main()
     while(t--){
         ll n;
         cin>>n;
-        vl v(n);
-        vpll a;
+        vector<vector<ll>> v;
         rep(i,0,n){
-            cin>>v[i];
+            ll k;
+            cin>>k;
+            vl t;
+            rep(j,0,k){
+                ll a;
+                cin>>a;
+                t.pb(a);
+            }
+            v.pb(t);
         }
-        if(isal(v)){
-            cout<<0<<endl;
+        vl res;
+        sort(all(v),compare);
+        rep(i,0,n){
+            int mindex = std::max_element(v[i].begin(),v[i].end()) - v[i].begin();
+            ll ans=*max_element(all(v[i]))+1-mindex;
+            res.pb(ans);
         }
-        else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
+        sort(all(res));
+        ll res1=res[0];
+        rep(i,1,sz(res)){
+            if((res1+v[i-1].size())<v[i]){
+                
             }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
-                }
-            }
-            else{
-                cout<<-1<<endl;
-            }
+        }
 
-        }
-        
-         
     }
-
+     
+    
     return 0;
 }

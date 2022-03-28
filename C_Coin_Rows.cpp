@@ -39,13 +39,6 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
-    }
-    return true;
-}
 
 int main()
 {
@@ -56,32 +49,41 @@ int main()
     while(t--){
         ll n;
         cin>>n;
-        vl v(n);
-        vpll a;
+        ll v[3][n+1];
         rep(i,0,n){
-            cin>>v[i];
+            cin>>v[1][i+1];
         }
-        if(isal(v)){
-            cout<<0<<endl;
+        rep(i,0,n){
+            cin>>v[2][i+1];
         }
-        else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
-            }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
+        ll ans1=0,ans2=0;
+        ll a[3][n+1];
+        rep(i,0,n+2){
+            a[0][i]=0;
+            a[1][i]=0;
+            a[2][i]=0;
+        }
+        a[1][1]=0;
+        rep(i,1,3){
+            rep(j,1,n+1){
+                if(i+1<=n){
+                    a[i+1][j]=max(a[i+1][j],v[i+1][j]+a[i][j]);
+                }
+                if(j+1<=n){
+                    a[i][j+1]=max(a[i][j+1],v[i][j+1]+a[i][j]);
                 }
             }
-            else{
-                cout<<-1<<endl;
-            }
-
         }
-        
-         
-    }
+        ll s=0;
+        rep(i,1,3){
+            rep(j,1,n+1){
+                cout<<a[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+        cout<<s-a[2][n]<<endl;
 
+    }
+    
     return 0;
 }

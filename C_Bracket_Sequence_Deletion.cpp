@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef long long ll;
+typedef int64_t ll;
 typedef long double ld;
 typedef double db;
 typedef vector<int> vi;
@@ -39,13 +39,7 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
-    }
-    return true;
-}
+
 
 int main()
 {
@@ -56,32 +50,27 @@ int main()
     while(t--){
         ll n;
         cin>>n;
-        vl v(n);
-        vpll a;
+        string s,tmp="";
+        cin>>s;
+        ll ans=0,cnt=0;
         rep(i,0,n){
-            cin>>v[i];
-        }
-        if(isal(v)){
-            cout<<0<<endl;
-        }
-        else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
+            tmp+=s[i];
+            if(tmp=="))" || tmp=="((" || tmp=="()"){
+                ans+=2;
+                cnt++;
+                tmp="";
             }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
+            else if(tmp.length()>1){
+                if(s[i]==')'){
+                    ans+=tmp.length();
+                    cnt++;
+                    tmp="";
                 }
             }
-            else{
-                cout<<-1<<endl;
-            }
-
         }
         
-         
+        cout<<cnt<<" "<<n-ans<<endl;
     }
-
+    
     return 0;
 }

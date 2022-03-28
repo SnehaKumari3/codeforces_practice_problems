@@ -39,48 +39,60 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
-    }
-    return true;
-}
+
 
 int main()
 {
     FAST;
     // your code goes here
-    ll t=1;
+    ll t;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
-        vl v(n);
-        vpll a;
-        rep(i,0,n){
-            cin>>v[i];
+        ll n,a,b;
+        cin>>n>>a>>b;
+        if(a==0 && b==0){
+            rep(i,1,n+1){
+                cout<<i<<" ";
+            }
         }
-        if(isal(v)){
-            cout<<0<<endl;
+        else if(a+b>n-2 || abs(b-a)>1){
+            cout<<-1;
         }
         else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
+            if(a>b){
+                ll x=a+b+1;
+                rep(i,1,n-x+1){
+                    cout<<i<<" ";
+                }
+                rep(i,n-x+1,n+1){
+                    cout<<i+1<<" "<<i<<" ";
+                    i++;
+                }
             }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
+            else if(b>a){
+                ll x=a+b+1;
+                rep(i,1,x+1){
+                    cout<<i+1<<" "<<i<<" ";
+                    i++;
+                }
+                rep(i,x+1,n+1){
+                    cout<<i<<" ";
                 }
             }
             else{
-                cout<<-1<<endl;
+                ll x=a+b;
+                rep(i,1,x+1){
+                    cout<<i+1<<" "<<i<<" ";
+                    i++;
+                }
+                rep(i,x+1,n-1){
+                    cout<<i<<" ";
+                }
+                cout<<n<<" "<<n-1;
             }
 
         }
-        
-         
+        cout<<endl;
     }
 
     return 0;

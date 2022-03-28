@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <algorithm>
 using namespace std;
 
 typedef long long ll;
@@ -39,13 +40,7 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
-    }
-    return true;
-}
+
 
 int main()
 {
@@ -54,34 +49,19 @@ int main()
     ll t=1;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
-        vl v(n);
-        vpll a;
-        rep(i,0,n){
-            cin>>v[i];
+        ll c,m,x;
+        cin>>c>>m>>x;
+        ll t=c+m+x;
+        ll mn=min(c,m);
+        if(c>=(t/3) && m>=(t/3)){
+            cout<<min(mn,t/3);
         }
-        if(isal(v)){
-            cout<<0<<endl;
+        else {
+            cout<<mn;
         }
-        else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
-            }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
-                }
-            }
-            else{
-                cout<<-1<<endl;
-            }
-
-        }
-        
-         
+        cout<<endl;
     }
-
+     
+    
     return 0;
 }

@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <algorithm>
 using namespace std;
 
 typedef long long ll;
@@ -39,12 +40,11 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
-    }
-    return true;
+
+bool compare(vl a,vl b){
+    ll m1=*max_element(all(a));
+    ll m2=*max_element(all(b));
+    return m1>m2;
 }
 
 int main()
@@ -52,36 +52,48 @@ int main()
     FAST;
     // your code goes here
     ll t=1;
-    cin>>t;
+    
     while(t--){
-        ll n;
-        cin>>n;
-        vl v(n);
-        vpll a;
-        rep(i,0,n){
+        ll n,m;
+        cin>>n>>m;
+        vl v(n+1),s(n+1,0);
+        rep(i,1,n+1){
             cin>>v[i];
+            
         }
-        if(isal(v)){
-            cout<<0<<endl;
+        sort(all(v));
+        ll k=1;
+        rep(i,1,n+1){
+            s[i]=s[i-1]+v[i];
         }
-        else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
-            }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
+        while(k<=n){
+            ll ans=0;
+            ll d=k/m;
+            ll r=k%m;
+            ll cnt=1;
+            if(r==0){
+                while(d>0){
+                    ans+=d*(s[m*cnt]-s[m*(cnt-1)]);
+                    cnt++;
+                    d--;
                 }
             }
             else{
-                cout<<-1<<endl;
+
+                ans+=(d+1)*(s[r]);
+                while(d>0){
+                    ans+=d*(s[m*cnt + r]-s[m*(cnt-1)+r]);
+                    cnt++;
+                    d--;
+                }
             }
-
+            cout<<ans<<" ";
+            k++;
         }
-        
-         
-    }
 
+        cout<<endl;
+    }
+     
+    
     return 0;
 }

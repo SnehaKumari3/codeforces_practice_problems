@@ -57,30 +57,25 @@ int main()
         ll n;
         cin>>n;
         vl v(n);
-        vpll a;
         rep(i,0,n){
             cin>>v[i];
         }
-        if(isal(v)){
-            cout<<0<<endl;
+        ll mn=*min_element(all(v));
+        ll mx=*max_element(all(v));
+        ll j=0,k=0;
+        rep(i,0,n){
+            if(v[i]==mn){
+                j=i+1;
+                break;
+            }
         }
-        else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
+        rep(i,0,n){
+            if(v[i]==mx){
+                k=i+1;
+                break;
             }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
-                }
-            }
-            else{
-                cout<<-1<<endl;
-            }
-
         }
-        
-         
+        cout<<j<<" "<<k<<endl;
     }
 
     return 0;

@@ -39,13 +39,6 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
-    }
-    return true;
-}
 
 int main()
 {
@@ -57,31 +50,49 @@ int main()
         ll n;
         cin>>n;
         vl v(n);
-        vpll a;
         rep(i,0,n){
             cin>>v[i];
         }
-        if(isal(v)){
-            cout<<0<<endl;
+        if(v[0]==1){
+            cout<<n+1<<" ";
+            rep(i,1,n+1){
+                cout<<i<<" ";
+            }
+        }
+        else if(n==1 && v[0]==0){
+            cout<<1<<" "<<2;
+        }
+        else if(v[n-1]==0){
+            rep(i,1,n+1){
+                cout<<i<<" ";
+            }
+            cout<<n+1<<" ";
         }
         else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
+            ll i=1;
+            bool ok=false;
+            while(i<n){
+                if(v[i]==1 && v[i-1]==0){
+                    ok=true;
+                    break;
+                }
+                i++;
             }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
+
+            if(ok){
+                rep(j,1,n+1){
+                    cout<<j<<" ";
+                    if(j==i){
+                        cout<<n+1<<" ";
+                    }
                 }
             }
             else{
-                cout<<-1<<endl;
+                cout<<-1;
             }
-
         }
-        
-         
+        cout<<endl;
     }
-
+    
     return 0;
 }

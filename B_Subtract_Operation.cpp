@@ -54,33 +54,31 @@ int main()
     ll t=1;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
-        vl v(n);
-        vpll a;
+        ll n,k;
+        cin>>n>>k;
+        mll m;
+        bool ok=false;
         rep(i,0,n){
-            cin>>v[i];
-        }
-        if(isal(v)){
-            cout<<0<<endl;
-        }
-        else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
+            ll a;
+            cin>>a;
+            m[a]++;
+            auto it = m.find(a+k);
+            if(it!=m.end()){
+                ok=true;
             }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
-                }
+            auto it1 = m.find(a-k);
+            if(it1!=m.end()){
+                ok=true;
             }
-            else{
-                cout<<-1<<endl;
-            }
-
         }
         
-         
+          
+        if(ok){
+            cout<<"YES"<<endl;
+        }
+        else{
+            cout<<"NO"<<endl;
+        }
     }
 
     return 0;

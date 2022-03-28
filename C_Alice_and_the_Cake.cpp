@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <algorithm>
+#include <queue>
 using namespace std;
 
 typedef long long ll;
@@ -24,7 +26,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
@@ -39,13 +41,6 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
-    }
-    return true;
-}
 
 int main()
 {
@@ -57,31 +52,54 @@ int main()
         ll n;
         cin>>n;
         vl v(n);
-        vpll a;
         rep(i,0,n){
             cin>>v[i];
         }
-        if(isal(v)){
-            cout<<0<<endl;
+        if(n==1){
+            cout<<"YES"<<endl;
         }
         else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
+            ll s=0;
+            mll m;
+            rep(i,0,n){
+                s+=v[i];
+                m[v[i]]++;
             }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
+            priority_queue<ll> q;
+            q.push(s);
+            while(q.size()<n){
+                ll t=q.top();
+                q.pop();
+                ll x=t/2,y=(t+1)/2;
+                if(m.count(x)){
+                    m[x]--,n--;
+                }
+                else{
+                    q.push(x);
+                }
+                
+                if(m[x]==0){
+                    m.erase(x);
+                }
+                if(m.count(y)){
+                    m[y]--,n--;
+                }
+                else{
+                    q.push(y);
+                }
+                
+                if(m[y]==0){
+                    m.erase(y);
                 }
             }
-            else{
-                cout<<-1<<endl;
-            }
+            if(q.size()==0)
+            cout<<"YES"<<endl;
+            else
+            cout<<"NO"<<endl;
 
         }
-        
-         
     }
-
+     
+    
     return 0;
 }

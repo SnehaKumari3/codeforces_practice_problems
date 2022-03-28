@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef long long ll;
+typedef int64_t ll;
 typedef long double ld;
 typedef double db;
 typedef vector<int> vi;
@@ -39,13 +39,6 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
-    }
-    return true;
-}
 
 int main()
 {
@@ -54,34 +47,22 @@ int main()
     ll t=1;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
-        vl v(n);
-        vpll a;
-        rep(i,0,n){
-            cin>>v[i];
-        }
-        if(isal(v)){
-            cout<<0<<endl;
-        }
-        else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
-            }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
-                }
+        ll n,b,x,y;
+        cin>>n>>b>>x>>y;
+        int64_t s=0;
+        ll tmp=0;
+        rep(i,1,n+1){
+            if((tmp+x)<=b){
+                tmp+=x;
             }
             else{
-                cout<<-1<<endl;
+                tmp-=y;
             }
-
+            s+=tmp;
         }
+        cout<<s<<endl;
         
-         
     }
-
+    
     return 0;
 }

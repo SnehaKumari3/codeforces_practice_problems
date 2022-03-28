@@ -39,13 +39,7 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
-    }
-    return true;
-}
+
 
 int main()
 {
@@ -57,30 +51,19 @@ int main()
         ll n;
         cin>>n;
         vl v(n);
-        vpll a;
+        int64_t s=0;
         rep(i,0,n){
             cin>>v[i];
+            s+=v[i];
         }
-        if(isal(v)){
+        ll r=s%n;
+        if(r==0){
             cout<<0<<endl;
         }
         else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
-            }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
-                }
-            }
-            else{
-                cout<<-1<<endl;
-            }
-
+            cout<<1<<endl;
         }
         
-         
     }
 
     return 0;

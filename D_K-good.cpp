@@ -39,49 +39,35 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
+ll n;
+vector<bool> is_prime(n+1, true);
+void sieve(){
+    is_prime[0] = is_prime[1] = false;
+    for (int i = 2; i <= n; i++) {
+        if (is_prime[i] && (long long)i * i <= n) {
+        for (int j = i * i; j <= n; j += i)
+            is_prime[j] = false;
+        }
+    }
+}
+
+bool isSort(vl v){
+    rep(i,2,sz(v)){
         if(v[i]<v[i-1])
         return false;
     }
     return true;
 }
-
 int main()
 {
     FAST;
     // your code goes here
-    ll t=1;
+    ll t;
     cin>>t;
     while(t--){
         ll n;
         cin>>n;
-        vl v(n);
-        vpll a;
-        rep(i,0,n){
-            cin>>v[i];
-        }
-        if(isal(v)){
-            cout<<0<<endl;
-        }
-        else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
-            }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
-                }
-            }
-            else{
-                cout<<-1<<endl;
-            }
-
-        }
         
-         
     }
-
     return 0;
 }

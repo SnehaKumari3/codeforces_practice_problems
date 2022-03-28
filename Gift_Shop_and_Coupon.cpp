@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
+#include <cmath>
 using namespace std;
 
-typedef long long ll;
-typedef long double ld;
-typedef double db;
+typedef long double ll;
+
 typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef vector<ll> vl;
@@ -39,13 +39,6 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
-    }
-    return true;
-}
 
 int main()
 {
@@ -54,34 +47,37 @@ int main()
     ll t=1;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
+        ll n,k;
+        cin>>n>>k;
         vl v(n);
-        vpll a;
+        ll s=0;
         rep(i,0,n){
             cin>>v[i];
+            s+=v[i];
         }
-        if(isal(v)){
-            cout<<0<<endl;
+        sort(all(v));
+        if(s<=k){
+            cout<<n;
+        }
+        else if(k==0){
+            cout<<0;
         }
         else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
+            ll i=0;
+            ll ans=0;
+            while(k>=v[i] && i<n){
+                ans++;
+                k-=v[i];
+                i++;
             }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
-                }
+            if(k>=round(v[i]/2) && i<n){
+                ans++;
             }
-            else{
-                cout<<-1<<endl;
-            }
-
+            cout<<ans;
         }
+        cout<<endl;
         
-         
     }
-
+    
     return 0;
 }

@@ -39,9 +39,24 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
+ll findGCD(vector<ll> v)
+{
+    ll result = v[0];
+    for (ll i = 1; i < v.size(); i++)
+    {
+        result = __gcd(v[i], result);
+ 
+        if(result == 1)
+        {
+           return 1;
+        }
+    }
+    return result;
+}
+
+bool allsame(vl v){
     rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
+        if(v[i]%2!=v[0]%2)
         return false;
     }
     return true;
@@ -51,37 +66,39 @@ int main()
 {
     FAST;
     // your code goes here
-    ll t=1;
+    ll t;
     cin>>t;
     while(t--){
         ll n;
         cin>>n;
-        vl v(n);
-        vpll a;
-        rep(i,0,n){
-            cin>>v[i];
+        vl v1,v2;
+        for(int i=0;i<n;i++){
+            ll a;
+            cin>>a;
+	        if(i%2){
+	            v2.push_back(a);
+	        }
+	        else{
+	            v1.push_back(a);
+	        }
+	    }
+        if(allsame(v1) && allsame(v2)){
+            cout<<2;
         }
-        if(isal(v)){
-            cout<<0<<endl;
-        }
-        else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
+        else{  
+	        ll tmp1=findGCD(v1);
+            ll tmp2=findGCD(v2);
+            if(tmp1%tmp2!=0 && tmp2>1){
+                cout<<tmp1;
             }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
-                }
+            else if(tmp2%tmp2!=0 && tmp1>1){
+                cout<<tmp2;
             }
             else{
-                cout<<-1<<endl;
+                cout<<0;
             }
-
         }
-        
-         
+	    cout<<endl;
     }
-
     return 0;
 }

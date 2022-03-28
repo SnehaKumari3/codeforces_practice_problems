@@ -37,51 +37,72 @@ typedef map<string, string> mss;
 #define max3(a, b, c) max(a, max(b, c))
 #define min3(a, b, c) min(a, min(b, c))
 #define sz(v) ll(v.size())
-#define mod 1000000007
+#define mod 998244353
 
-bool isal(vl v){
-    rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
-        return false;
-    }
-    return true;
-}
 
 int main()
 {
     FAST;
     // your code goes here
-    ll t=1;
+    ll t;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
-        vl v(n);
-        vpll a;
-        rep(i,0,n){
-            cin>>v[i];
-        }
-        if(isal(v)){
-            cout<<0<<endl;
-        }
-        else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
+        int64_t a,s;
+        cin>>a>>s;
+        vl v;
+        bool ok=true;
+        while(s>0){
+            ll r1=s%10;
+            s/=10;
+            ll r2=a%10;
+            a/=10;
+            if(r2>r1){
+                r1=(s%10)*10+r1;
+                s/=10;
             }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
-                }
+            if(r2>r1){
+                ok=false;
+                break;
+            }
+            v.pb(r1-r2);
+        }
+        if(a>0){
+            ok=false;
+        }
+
+        if(ok){
+            string res="";
+            for(ll i=sz(v)-1;i>=0;i--){
+            if(v[i]>9){
+                ok=false;
+                break;
             }
             else{
-                cout<<-1<<endl;
+                res+=to_string(v[i]);
             }
-
+            }
+            if(ok){
+            ll i=0;
+            bool flag=true;
+            while(i<res.size()){
+                if(res[i]=='0' && flag){
+                    i++;
+                    continue;
+                }
+                else{
+                    flag=false;
+                    cout<<res[i++];
+                }
+            }
+            }
+            else{
+                cout<<-1;
+            }
         }
-        
-         
+        else{
+            cout<<-1;
+        }
+        cout<<endl;
     }
-
     return 0;
 }

@@ -39,9 +39,24 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool isal(vl v){
+ll findGCD(vector<ll> v)
+{
+    ll result = v[0];
+    for (ll i = 1; i < v.size(); i++)
+    {
+        result = __gcd(v[i], result);
+ 
+        if(result == 1)
+        {
+           return 1;
+        }
+    }
+    return result;
+}
+
+bool allsame(vl v){
     rep(i,1,sz(v)){
-        if(v[i]<v[i-1])
+        if(v[i]%2!=v[0]%2)
         return false;
     }
     return true;
@@ -51,37 +66,32 @@ int main()
 {
     FAST;
     // your code goes here
-    ll t=1;
+    ll t;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
+        ll n,k;
+        cin>>n>>k;
         vl v(n);
-        vpll a;
         rep(i,0,n){
             cin>>v[i];
         }
-        if(isal(v)){
-            cout<<0<<endl;
-        }
-        else{
-            if(v[n-1]<v[n-2]){
-                cout<<-1<<endl;
+        sort(all(v));
+        int64_t c=0;
+        ll i=1*k;
+        while(i<=n){
+            i=i*k;
+            if(i==n){
+                c+=i*k;
             }
-            else if((v[n-2]-v[n-1])<=v[n-2]){
-                cout<<n-2<<endl;
-                rep(i,0,n-2){
-                    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
-                }
+            else if(i<n){
+                c+=2*i;
             }
             else{
-                cout<<-1<<endl;
+                c+=n;
             }
-
+            i++;
         }
-        
-         
+        cout<<c<<endl;
     }
-
     return 0;
 }
