@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include<algorithm>
 using namespace std;
 
 typedef long long ll;
@@ -39,64 +40,53 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-
-
+ll solve(vl v,ll l,ll r){
+    ll ans=0;
+    for(int i=0;i<l;i++){
+        if(v[i]==1){
+            ans++;
+        }
+    }
+    for(int i=l;i<=r;i++){
+        if(v[i]==0){
+            ans++;
+        }
+    }
+    for(int i=r+1;i<sz(v);i++){
+        if(v[i]==1){
+            ans++;
+        }
+    }
+    return ans;
+}
 int main()
 {
     FAST;
     // your code goes here
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n,k;
-        cin>>n>>k;
-        vl v1,v2;
-        v1.pb(0);
-        v2.pb(0);
-        rep(i,0,n){
-            ll a;
-            cin>>a;
-            if(a>0){
-                v1.pb(a);
-            }
-            else{
-                v2.pb(-1*a);
-            }
-        }
-        sort(all(v1));
-        sort(all(v2));
-        ll m1=*max_element(all(v1));
-        ll m2=*max_element(all(v2));
-        int64_t c=0;
-        if(m2>m1){
-            ll i=sz(v2)-1;
-            c+=v2[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-            i=sz(v1)-1;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
+    ll n;
+    cin>>n;
+    vl v(n);
+    rep(i,0,n){
+        cin>>v[i];
+    }
+    vpll ans;
+    ll z=0,o=0;
+    ll res=0;
+    rep(i,0,n){
+        if(v[i]==0){
+            z++;
         }
         else{
-            ll i=sz(v1)-1;
-            c+=v1[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-            i=sz(v2)-1;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
+            o++;
         }
-        cout<<c<<endl;
+        ans.pb({z,o});
     }
+    
+    rep(i,0,sz(ans)){
+        rep(j,i,sz(ans)){
+            res=max(res,solve(v,i,j));
+        }
+    }
+    cout<<res;
     return 0;
 }

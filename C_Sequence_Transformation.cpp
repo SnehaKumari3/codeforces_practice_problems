@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <algorithm>
 using namespace std;
 
 typedef long long ll;
@@ -39,64 +40,46 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-
-
 int main()
 {
     FAST;
     // your code goes here
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n,k;
-        cin>>n>>k;
-        vl v1,v2;
-        v1.pb(0);
-        v2.pb(0);
-        rep(i,0,n){
-            ll a;
-            cin>>a;
-            if(a>0){
-                v1.pb(a);
-            }
-            else{
-                v2.pb(-1*a);
-            }
+    ll t = 1;
+    cin >> t;
+    while (t--)
+    {
+        ll n;
+        cin >> n;
+        vl v(n + 1, 0);
+        vl a(n);
+        rep(i, 0, n)
+        {
+            cin >> a[i];
         }
-        sort(all(v1));
-        sort(all(v2));
-        ll m1=*max_element(all(v1));
-        ll m2=*max_element(all(v2));
-        int64_t c=0;
-        if(m2>m1){
-            ll i=sz(v2)-1;
-            c+=v2[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
+        rep(i, 0, n)
+        {
+            ll k = i + 1;
+            v[a[i]] += 1;
+            while (a[k] == a[i])
+            {
+                k++;
             }
-            i=sz(v1)-1;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
+            i = k - 1;
         }
-        else{
-            ll i=sz(v1)-1;
-            c+=v1[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-            i=sz(v2)-1;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
+        if(a[0]==a[n-1]){
+            v[a[0]] -= 1;
         }
-        cout<<c<<endl;
+        
+        ll ans = 2 * 10e5;
+        rep(i, 0, n)
+        {
+            if(i!=0 && i!=(n-1)){
+                v[a[i]] += 1;
+            }
+            if(v[a[i]]>=0)
+            ans = min(ans, v[a[i]]);
+        }
+        cout << ans << endl;
     }
     return 0;
 }

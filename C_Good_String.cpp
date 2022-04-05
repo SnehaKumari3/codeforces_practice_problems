@@ -39,37 +39,51 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-
+int dp[200005];
+int solve(string &s,int i){
+    if(i>=sz(s)-2)
+        return 0;
+    if(dp[i]!=-1){
+        return dp[i];
+    }
+    if(i==sz(s)-1)
+        return 1;
+    if(i==sz(s)-2)
+        return 2;
+    if(i+2<sz(s) && s[i]==s[i+2])
+        return solve(s,i+1);
+    else{
+        int j=i+2;
+        for(;j<sz(s);j++){
+            if(s[i]==s[j]){
+                break;
+            }
+        }
+        if(j==sz(s)){
+            return 1+solve(s,i+1);
+        }
+        else{
+            int c1=j-i-1 + solve(s,j+1);
+            int c2=1 + solve(s,i+1);
+            return dp[i]=min(c1,c2);
+        }
+    }
+}
 
 int main()
 {
     FAST;
     // your code goes here
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    string ans="";
-    
-    ll i=0;
-    ans+=s[i];
-    while(i<n){
-        if(ans.length()%2==1){
-            if(s[i]!=ans[sz(ans)-1]){
-                ans+=s[i];
-            }
-
+    int t=1;
+    cin>>t;
+    while(t--){
+        string s;
+        cin>>s;
+        rep(i,0,sz(s)){
+            dp[i]=-1;
         }
-        else{
-            ans+=s[i];
-        }
-        i++;
+        int ans=solve(s,0);
+        cout<<ans<<endl;
     }
-    if(ans.length()%2)
-    ans.erase(sz(ans)-1, 1);
-
-    cout<<n-ans.size()<<endl;
-    cout<<ans<<endl;
-
     return 0;
 }

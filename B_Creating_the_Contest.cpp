@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
+#include <algorithm>
 using namespace std;
 
-typedef long long ll;
+typedef int64_t ll;
 typedef long double ld;
 typedef double db;
 typedef vector<int> vi;
@@ -45,58 +46,26 @@ int main()
 {
     FAST;
     // your code goes here
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n,k;
-        cin>>n>>k;
-        vl v1,v2;
-        v1.pb(0);
-        v2.pb(0);
-        rep(i,0,n){
-            ll a;
-            cin>>a;
-            if(a>0){
-                v1.pb(a);
-            }
-            else{
-                v2.pb(-1*a);
-            }
-        }
-        sort(all(v1));
-        sort(all(v2));
-        ll m1=*max_element(all(v1));
-        ll m2=*max_element(all(v2));
-        int64_t c=0;
-        if(m2>m1){
-            ll i=sz(v2)-1;
-            c+=v2[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-            i=sz(v1)-1;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
+    ll n;
+    cin>>n;
+    vl v(n);
+    vl ans;
+    ll cnt=1;
+    rep(i,0,n){
+        cin>>v[i];
+    }
+    repr(j,n-1,0){
+        if(v[j]<=2*v[j-1]){
+            cnt++;
         }
         else{
-            ll i=sz(v1)-1;
-            c+=v1[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-            i=sz(v2)-1;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
+            ans.pb(cnt);
+            cnt=1;
         }
-        cout<<c<<endl;
     }
+    ans.pb(cnt);
+    int64_t res=*max_element(all(ans));
+    cout<<res;
+
     return 0;
 }

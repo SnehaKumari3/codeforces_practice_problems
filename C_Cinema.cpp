@@ -39,64 +39,56 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
+bool compare(pll a, pll b)
+{
+    return a.se > b.se;
+}
 
 
+int p[200006][3];
+int l[200006]={0};
+// int solve(int n,int m){
+//     rep(i,0,n+1){
+//         rep(j,0,m+1){
+//             if(i==0 || j==0){
+//                 a[i][j]=0;
+//             }
+//         }
+//     }
+// }
 int main()
 {
     FAST;
     // your code goes here
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n,k;
-        cin>>n>>k;
-        vl v1,v2;
-        v1.pb(0);
-        v2.pb(0);
-        rep(i,0,n){
-            ll a;
-            cin>>a;
-            if(a>0){
-                v1.pb(a);
-            }
-            else{
-                v2.pb(-1*a);
-            }
+    ll n, m1;
+    cin >> n;
+    mll m;
+    rep(i,0,200006){
+        rep(j,0,200006){
+            p[i][j]=0;
         }
-        sort(all(v1));
-        sort(all(v2));
-        ll m1=*max_element(all(v1));
-        ll m2=*max_element(all(v2));
-        int64_t c=0;
-        if(m2>m1){
-            ll i=sz(v2)-1;
-            c+=v2[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-            i=sz(v1)-1;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-        }
-        else{
-            ll i=sz(v1)-1;
-            c+=v1[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-            i=sz(v2)-1;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-        }
-        cout<<c<<endl;
     }
+    rep(i, 0, n)
+    {
+        ll a;
+        cin >> a;
+        l[a]+=1;
+    }
+    cin >> m1;
+    ll a[m1][2];
+    rep(i, 0, m1)
+    {
+        cin >> a[i][0];
+    }
+    rep(i, 0, m1)
+    {
+        cin >> a[i][1];
+    }
+    rep(i,0,m1){
+        p[a[i][0]][2]=a[i][0];
+        p[a[i][0]][0]+=l[a[i][0]];
+        p[a[i][0]][1]+=l[a[i][1]];
+    }
+    
     return 0;
 }

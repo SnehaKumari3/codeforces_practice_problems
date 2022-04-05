@@ -39,64 +39,32 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-
+bool compare(pair<char,ll> a,pair<char,ll> b){
+    return b.se<a.se;
+}
 
 int main()
 {
-    FAST;
-    // your code goes here
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n,k;
-        cin>>n>>k;
-        vl v1,v2;
-        v1.pb(0);
-        v2.pb(0);
-        rep(i,0,n){
-            ll a;
-            cin>>a;
-            if(a>0){
-                v1.pb(a);
+    string s,t;
+    cin>>s>>t;
+    bool ok=true;
+    if(sz(s)==sz(t)){
+        ll j=sz(t)-1;
+        rep(i,0,sz(s)){
+            if(s[i]!=t[j] && j>=0){
+                ok=false;
+                break;
             }
-            else{
-                v2.pb(-1*a);
-            }
+            j--;
         }
-        sort(all(v1));
-        sort(all(v2));
-        ll m1=*max_element(all(v1));
-        ll m2=*max_element(all(v2));
-        int64_t c=0;
-        if(m2>m1){
-            ll i=sz(v2)-1;
-            c+=v2[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-            i=sz(v1)-1;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
+        if(ok){
+            cout<<"YES";
         }
         else{
-            ll i=sz(v1)-1;
-            c+=v1[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-            i=sz(v2)-1;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
+            cout<<"NO";
         }
-        cout<<c<<endl;
     }
-    return 0;
+    else{
+        cout<<"NO";
+    }
 }

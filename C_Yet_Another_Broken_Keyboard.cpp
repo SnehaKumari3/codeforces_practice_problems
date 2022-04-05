@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <algorithm>
 using namespace std;
 
 typedef long long ll;
@@ -40,63 +41,32 @@ typedef map<string, string> mss;
 #define mod 1000000007
 
 
-
 int main()
 {
     FAST;
     // your code goes here
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n,k;
-        cin>>n>>k;
-        vl v1,v2;
-        v1.pb(0);
-        v2.pb(0);
-        rep(i,0,n){
-            ll a;
-            cin>>a;
-            if(a>0){
-                v1.pb(a);
-            }
-            else{
-                v2.pb(-1*a);
-            }
-        }
-        sort(all(v1));
-        sort(all(v2));
-        ll m1=*max_element(all(v1));
-        ll m2=*max_element(all(v2));
-        int64_t c=0;
-        if(m2>m1){
-            ll i=sz(v2)-1;
-            c+=v2[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-            i=sz(v1)-1;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
+    ll n,k;
+    vl a(26,-1);
+    string s;
+    cin>>n>>k;
+    cin>>s;
+    rep(i,0,k){
+        char ch;
+        cin>>ch;
+        a[ch-'a']=1;
+    }
+    ll cnt=0;
+    int64_t res=0;
+    rep(i,0,n){
+        if(a[s[i]-'a']==1){
+            cnt++;
         }
         else{
-            ll i=sz(v1)-1;
-            c+=v1[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-            i=sz(v2)-1;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
+            res+=(cnt)*(cnt+1)/2;
+            cnt=0;
         }
-        cout<<c<<endl;
     }
+    res+=(cnt)*(cnt+1)/2;
+    cout<<res;
     return 0;
 }

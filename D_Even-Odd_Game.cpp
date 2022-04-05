@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <algorithm>
 using namespace std;
 
 typedef long long ll;
@@ -39,64 +40,70 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-
+bool palid(string s)
+{
+    ll i = 0, j = s.length() - 1;
+    while (i <= j)
+    {
+        if (s[i] != s[j] && s[i] != '?')
+        {
+            return false;
+        }
+        i++, j--;
+    }
+    return true;
+}
+bool cnt(string s, ll a, ll b)
+{
+    rep(i, 0, sz(s))
+    {
+        if (s[i] == '0')
+            a--;
+        else
+            b--;
+    }
+    if (a == 0 && b == 0)
+        return true;
+    return false;
+}
 
 int main()
 {
     FAST;
     // your code goes here
     ll t;
-    cin>>t;
-    while(t--){
-        ll n,k;
-        cin>>n>>k;
-        vl v1,v2;
-        v1.pb(0);
-        v2.pb(0);
+    cin >> t;
+    while (t--)
+    {
+        ll n;
+        cin>>n;
+        vl e,o;
+        ll s1=0,s2=0;
         rep(i,0,n){
             ll a;
             cin>>a;
-            if(a>0){
-                v1.pb(a);
+            if(a%2){
+                o.pb(a);
+                s1+=a;
             }
             else{
-                v2.pb(-1*a);
+                e.pb(a);
+                s2+=a;
             }
         }
-        sort(all(v1));
-        sort(all(v2));
-        ll m1=*max_element(all(v1));
-        ll m2=*max_element(all(v2));
-        int64_t c=0;
-        if(m2>m1){
-            ll i=sz(v2)-1;
-            c+=v2[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-            i=sz(v1)-1;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
+        sort(all(e));
+        sort(all(o));
+        reverse(all(e));
+        reverse(all(o));
+        ll i=0,j=0,cnt=0;
+        while(i<sz(e) && j<sz(o) && s1>0 && s2>0){
+            if(cnt%2==0){
+                if(s2>s1){
+                    
+                }
             }
         }
-        else{
-            ll i=sz(v1)-1;
-            c+=v1[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-            i=sz(v2)-1;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-        }
-        cout<<c<<endl;
+
     }
     return 0;
 }

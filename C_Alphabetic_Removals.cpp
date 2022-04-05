@@ -37,66 +37,35 @@ typedef map<string, string> mss;
 #define max3(a, b, c) max(a, max(b, c))
 #define min3(a, b, c) min(a, min(b, c))
 #define sz(v) ll(v.size())
-#define mod 1000000007
-
-
+#define mod 998244353
 
 int main()
 {
     FAST;
     // your code goes here
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n,k;
-        cin>>n>>k;
-        vl v1,v2;
-        v1.pb(0);
-        v2.pb(0);
-        rep(i,0,n){
-            ll a;
-            cin>>a;
-            if(a>0){
-                v1.pb(a);
-            }
-            else{
-                v2.pb(-1*a);
-            }
+    ll n,k;
+    cin>>n>>k;
+    string s;
+    cin>>s;
+    vl v(26,0),t(26,0);
+    rep(i,0,n){
+        v[s[i]-'a']+=1;
+    }
+    ll i=0;
+    while(k>0){
+        if(v[i]>0){
+            t[i]=min(k,v[i]);
+            k-=t[i];
         }
-        sort(all(v1));
-        sort(all(v2));
-        ll m1=*max_element(all(v1));
-        ll m2=*max_element(all(v2));
-        int64_t c=0;
-        if(m2>m1){
-            ll i=sz(v2)-1;
-            c+=v2[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-            i=sz(v1)-1;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
+        i++;
+    }
+    rep(j,0,n){
+        if(t[s[j]-'a']>0){
+            t[s[j]-'a']-=1;
         }
         else{
-            ll i=sz(v1)-1;
-            c+=v1[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-            i=sz(v2)-1;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
+            cout<<s[j];
         }
-        cout<<c<<endl;
     }
     return 0;
 }

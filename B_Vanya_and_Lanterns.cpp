@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include<algorithm>
 using namespace std;
 
 typedef long long ll;
@@ -39,64 +40,38 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-
+double max(double a,double b){
+    if(a>b)
+    return a;
+    return b;
+}
 
 int main()
 {
     FAST;
     // your code goes here
-    ll t;
-    cin>>t;
+    ll t=1;
+    // cin>>n;
     while(t--){
-        ll n,k;
-        cin>>n>>k;
-        vl v1,v2;
-        v1.pb(0);
-        v2.pb(0);
+        ll n,l;
+        cin>>n>>l;
+        vector<double> v(n);
         rep(i,0,n){
-            ll a;
-            cin>>a;
-            if(a>0){
-                v1.pb(a);
-            }
-            else{
-                v2.pb(-1*a);
-            }
+            cin>>v[i];
         }
-        sort(all(v1));
-        sort(all(v2));
-        ll m1=*max_element(all(v1));
-        ll m2=*max_element(all(v2));
-        int64_t c=0;
-        if(m2>m1){
-            ll i=sz(v2)-1;
-            c+=v2[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-            i=sz(v1)-1;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
+        sort(all(v));
+        double ans=0;
+        rep(i,1,n){
+            ans=max(ans,(v[i]-v[i-1])/2);
         }
-        else{
-            ll i=sz(v1)-1;
-            c+=v1[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-            i=sz(v2)-1;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
+        if(v[0]!=0){
+            ans=max(ans,v[0]);
         }
-        cout<<c<<endl;
+        if(v[n-1]!=l){
+            ans=max(ans,l-v[n-1]);
+        }
+        cout<<fixed<<setprecision(10)<<ans;
     }
+    
     return 0;
 }

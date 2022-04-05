@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef long long ll;
+typedef int64_t ll;
 typedef long double ld;
 typedef double db;
 typedef vector<int> vi;
@@ -39,64 +39,56 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-
+bool issort(vl v){
+    rep(i,1,sz(v)){
+        if(v[i]<=v[i-1]){
+            return false;
+        }
+    }
+    return true;
+}
 
 int main()
 {
     FAST;
     // your code goes here
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n,k;
-        cin>>n>>k;
-        vl v1,v2;
-        v1.pb(0);
-        v2.pb(0);
-        rep(i,0,n){
-            ll a;
-            cin>>a;
-            if(a>0){
-                v1.pb(a);
+    ll n,k;
+    cin>>n>>k;
+    vl v(n);
+    rep(i,0,n){
+        cin>>v[i];
+    }
+    sort(all(v));
+    if(issort(v)){
+        cout<<v[n/2]+k;
+    }
+    else{
+        ll d;
+        rep(i,n/2,n-1){
+            d=v[i+1]-v[i];
+            if(d<=k){
+                k-=d;
+                v[i]+=d;
             }
             else{
-                v2.pb(-1*a);
+                break;
             }
         }
-        sort(all(v1));
-        sort(all(v2));
-        ll m1=*max_element(all(v1));
-        ll m2=*max_element(all(v2));
-        int64_t c=0;
-        if(m2>m1){
-            ll i=sz(v2)-1;
-            c+=v2[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
+        ll cnt=0;
+        while(k>0){
+            if(k>=(n/2)+1){
+                cnt++;
+                k-=(n/2+1);
             }
-            i=sz(v1)-1;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
+            else{
+                ll j=n/2;
+                while(k-- && j<n){
+                    v[j++]+=1;
+                }
             }
         }
-        else{
-            ll i=sz(v1)-1;
-            c+=v1[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-            i=sz(v2)-1;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-        }
-        cout<<c<<endl;
+        sort(all(v));
+        cout<<v[n/2]+cnt;
     }
     return 0;
 }

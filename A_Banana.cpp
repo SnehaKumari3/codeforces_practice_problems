@@ -39,64 +39,66 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-
+bool compare(pair<char,ll> a,pair<char,ll> b){
+    return b.se<a.se;
+}
 
 int main()
 {
-    FAST;
-    // your code goes here
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n,k;
-        cin>>n>>k;
-        vl v1,v2;
-        v1.pb(0);
-        v2.pb(0);
-        rep(i,0,n){
-            ll a;
-            cin>>a;
-            if(a>0){
-                v1.pb(a);
+    string s;
+    cin>>s;
+    ll n;
+    cin>>n;
+    map<char,ll> m;
+    rep(i,0,sz(s)){
+        m[s[i]]++;
+    }
+    // for(auto j:m){
+    //     cout<<j.fi<<" "<<j.se<<endl;
+    // }
+    if(m.size()>n){
+        cout<<-1;
+    }
+    else if(m.size()==n){
+        ll mx=-1;
+        for(auto i:m){
+            mx=max(i.se,mx);
+        }
+        cout<<mx<<endl;
+        for(auto i:m){
+            cout<<i.fi;
+        }
+    }
+    else{
+        string ans="";
+        vector<pair<char,ll>> v;
+        for(auto j:m){
+            v.pb({j.fi,j.se});
+        }
+        sort(all(v),compare);
+        ll d=n-sz(m);
+        map<char,ll> m1;
+        rep(i,0,sz(v)){
+            
+            ans+=v[i].fi;
+            m1[v[i].fi]++;
+            if(d>0){
+                ans+=v[i].fi;
+                m1[v[i].fi]++;
+                d--;
+            }
+        }
+        ll res=-1;
+        for(auto j:m1){
+            ll d=m[j.fi]/j.se;
+            ll r=m[j.fi]%j.se;
+            if(r==0){
+                res=max(res,d);
             }
             else{
-                v2.pb(-1*a);
+                res=max(res,d+1);
             }
         }
-        sort(all(v1));
-        sort(all(v2));
-        ll m1=*max_element(all(v1));
-        ll m2=*max_element(all(v2));
-        int64_t c=0;
-        if(m2>m1){
-            ll i=sz(v2)-1;
-            c+=v2[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-            i=sz(v1)-1;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-        }
-        else{
-            ll i=sz(v1)-1;
-            c+=v1[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-            i=sz(v2)-1;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-        }
-        cout<<c<<endl;
+        cout<<res<<endl<<ans;
     }
-    return 0;
 }

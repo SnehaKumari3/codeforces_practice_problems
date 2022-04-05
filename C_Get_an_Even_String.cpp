@@ -39,64 +39,49 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-
+int dp[200005];
+int solve(string &s,int i){
+    if(i>=sz(s))
+        return 0;
+    if(dp[i]!=-1){
+        return dp[i];
+    }
+    if(i==sz(s)-1)
+        return 1;
+    if(i+1<sz(s) && s[i]==s[i+1])
+        return solve(s,i+2);
+    else{
+        int j=i+1;
+        for(;j<sz(s);j++){
+            if(s[i]==s[j]){
+                break;
+            }
+        }
+        if(j==sz(s)){
+            return 1+solve(s,i+1);
+        }
+        else{
+            int c1=j-i-1 + solve(s,j+1);
+            int c2=1 + solve(s,i+1);
+            return dp[i]=min(c1,c2);
+        }
+    }
+}
 
 int main()
 {
     FAST;
     // your code goes here
-    ll t;
+    int t=1;
     cin>>t;
     while(t--){
-        ll n,k;
-        cin>>n>>k;
-        vl v1,v2;
-        v1.pb(0);
-        v2.pb(0);
-        rep(i,0,n){
-            ll a;
-            cin>>a;
-            if(a>0){
-                v1.pb(a);
-            }
-            else{
-                v2.pb(-1*a);
-            }
+        string s;
+        cin>>s;
+        rep(i,0,sz(s)){
+            dp[i]=-1;
         }
-        sort(all(v1));
-        sort(all(v2));
-        ll m1=*max_element(all(v1));
-        ll m2=*max_element(all(v2));
-        int64_t c=0;
-        if(m2>m1){
-            ll i=sz(v2)-1;
-            c+=v2[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-            i=sz(v1)-1;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-        }
-        else{
-            ll i=sz(v1)-1;
-            c+=v1[i];
-            i-=k;
-            while(i>=0){
-                c+=2*v1[i];
-                i-=k;
-            }
-            i=sz(v2)-1;
-            while(i>=0){
-                c+=2*v2[i];
-                i-=k;
-            }
-        }
-        cout<<c<<endl;
+        int ans=solve(s,0);
+        cout<<ans<<endl;
     }
     return 0;
 }
