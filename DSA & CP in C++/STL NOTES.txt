@@ -1,0 +1,24 @@
+Pointer
+    - structure padding.
+    -In the above program, we have tried to print the size of the array using the function.
+     In this case, we have created an array of type integer, and we pass the 'arr' to the function fun(). 
+     The fun() would return the size of the integer pointer, i.e., int*, and the size of the int* is 8 bytes in the 64-bit operating system.
+
+
+VECTOR --
+	
+	*  sort(v.begin() , v.end() );
+
+
+
+STRING --
+	*strcmp(str1 , str2 );
+
+
+PAIR
+1. vector<pair<pair<int,int>,pair<int,int>>> v;
+2. for (auto it : v)
+3. pair<int,int> coord = {x, y} 
+4. pair<int,int> coord = make_pair(x, y)
+5. int x = coord.first  int y = coord.second
+6. pair<string, pair<int, int> > var = {"abc",{4, 5} }
