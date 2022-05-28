@@ -41,7 +41,16 @@ typedef map<string, string> mss;
 #define mod 1000000007
 #define INF 10007
 
-
+bool isSorted(vl v)
+{
+    ll d = v[1] - v[0];
+    rep(i, 2, sz(v))
+    {
+        if (v[i] - v[i - 1] != d)
+            return false;
+    }
+    return true;
+}
 
 int main()
 {
@@ -51,29 +60,37 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll a, b;
-        cin >> a >> b;
-        ll d=abs(a-b);
-        if(a==0 && b==0){
-            cout << "YES";
+        ll n;
+        cin >> n;
+        vl v(n);
+        rep(i,0,n){
+            cin>>v[i];
         }
-        else if(a==0 || b==0){
-            cout << "NO";
+        
+        
+        ll ans=0;
+        ll i=1;
+        ll mx=v[0];
+        while(i<n){
+            
+            while(v[i]>mx && i<n){
+                mx=max(mx,v[i]);
+                i++;
+            }
+            if(i<n){
+                ans++;
+                mx=v[i];
+            }
+            i++;
+            if(i<n)
+            mx=v[i];
+            i++;
         }
-        else if(a>2*b || b>2*a){
-            cout << "NO";
-        }
-        else if((2*a-b)%3==0 && (2*a-b)>=0){
-            cout << "YES";
-        }
-        else if((2*b-a)%3==0 && (2*b-a)>=0){
-            cout << "YES";
-        }
-        else
-        {
-            cout << "NO";
-        }
+        
+        cout<<ans;
         cout << endl;
+        
     }
+    
     return 0;
 }

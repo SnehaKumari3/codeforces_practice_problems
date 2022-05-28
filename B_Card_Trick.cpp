@@ -51,28 +51,24 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll a, b;
-        cin >> a >> b;
-        ll d=abs(a-b);
-        if(a==0 && b==0){
-            cout << "YES";
+        
+        ll n;
+        cin>>n;
+        vl a(n);
+        rep(i,0,n){
+            cin>>a[i];
         }
-        else if(a==0 || b==0){
-            cout << "NO";
+        ll m;
+        cin>>m;
+        vl b(m);
+        rep(i,0,m){
+            cin>>b[i];
         }
-        else if(a>2*b || b>2*a){
-            cout << "NO";
+        ll index=0;
+        rep(i,0,m){
+            index=(index+b[i])%n;
         }
-        else if((2*a-b)%3==0 && (2*a-b)>=0){
-            cout << "YES";
-        }
-        else if((2*b-a)%3==0 && (2*b-a)>=0){
-            cout << "YES";
-        }
-        else
-        {
-            cout << "NO";
-        }
+        cout<<a[index];
         cout << endl;
     }
     return 0;

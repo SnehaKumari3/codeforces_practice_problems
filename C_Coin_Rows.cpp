@@ -47,41 +47,49 @@ int main()
     ll t=1;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
-        ll v[3][n+1];
-        rep(i,0,n){
-            cin>>v[1][i+1];
-        }
-        rep(i,0,n){
-            cin>>v[2][i+1];
-        }
-        ll ans1=0,ans2=0;
-        ll a[3][n+1];
-        rep(i,0,n+2){
-            a[0][i]=0;
-            a[1][i]=0;
-            a[2][i]=0;
-        }
-        a[1][1]=0;
-        rep(i,1,3){
-            rep(j,1,n+1){
-                if(i+1<=n){
-                    a[i+1][j]=max(a[i+1][j],v[i+1][j]+a[i][j]);
-                }
-                if(j+1<=n){
-                    a[i][j+1]=max(a[i][j+1],v[i][j+1]+a[i][j]);
-                }
+        ll m;
+        cin>>m;
+        ll a[2][m],b[2][m];
+        rep(i,0,2){
+            rep(j,0,m){
+                cin>>a[i][j];
+                b[i][j]=a[i][j];
             }
         }
-        ll s=0;
-        rep(i,1,3){
-            rep(j,1,n+1){
-                cout<<a[i][j]<<" ";
-            }
-            cout<<endl;
+        rep(i,2,m){
+            a[0][i]+=a[0][i-1];
         }
-        cout<<s-a[2][n]<<endl;
+        rep(i,1,m-1){
+            a[1][i]+=a[1][i-1];
+        }
+        // rep(i,0,2){
+        //     rep(j,0,m){
+        //         cout<<a[i][j]<<" ";
+        //     }
+        //     cout<<endl;
+        // }
+
+        ll i=m-1,j=m-2;
+        if(m==1){
+            cout<<0;
+        }
+        else if(m==2){
+            cout<<min(b[0][1],b[1][0]);
+        }
+        else{
+            repr(i,m-2,0){
+                b[0][i]+=b[0][i+1];
+            }
+            ll ans=min(a[0][m-1],a[1][m-2]);
+            ll i=m-1,j=m-3;
+            while(j>=0){
+                ll t=max(b[0][i],a[1][j]);
+                ans=min(ans,t);
+                i--,j--;
+            }
+            cout<<ans;
+        }
+        cout<<endl;
 
     }
     

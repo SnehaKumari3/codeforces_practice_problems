@@ -48,30 +48,34 @@ int main()
     FAST;
     // your code goes here
     ll t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
     {
-        ll a, b;
-        cin >> a >> b;
-        ll d=abs(a-b);
-        if(a==0 && b==0){
-            cout << "YES";
+        ll n,m;
+        cin>>n>>m;
+        ll x=-1,y=-1;
+        if(m-1>0){
+            x=m-1;
         }
-        else if(a==0 || b==0){
-            cout << "NO";
+        if(m+1<=n){
+            y=m+1;
         }
-        else if(a>2*b || b>2*a){
-            cout << "NO";
+        if(y!=-1){
+            if(n-y+1>x){
+                x=-1;
+            }
+            else{
+                y=-1;
+            }
         }
-        else if((2*a-b)%3==0 && (2*a-b)>=0){
-            cout << "YES";
+        if(n==1){
+            cout<<1;
         }
-        else if((2*b-a)%3==0 && (2*b-a)>=0){
-            cout << "YES";
+        else if(x==-1){
+            cout<<y;
         }
-        else
-        {
-            cout << "NO";
+        else{
+            cout<<x;
         }
         cout << endl;
     }

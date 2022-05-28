@@ -41,8 +41,6 @@ typedef map<string, string> mss;
 #define mod 1000000007
 #define INF 10007
 
-
-
 int main()
 {
     FAST;
@@ -51,22 +49,46 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll a, b;
-        cin >> a >> b;
-        ll d=abs(a-b);
-        if(a==0 && b==0){
+        string s, t, p;
+        cin >> s >> t >> p;
+        
+        vl p1(26, 0);
+        rep(i, 0, p.length())
+        {
+            p1[p[i] - 'a'] += 1;
+        }
+        // rep(i, 0, 26)
+        // {
+        //     cout << p1[i] << " ";
+        // }
+        
+        ll i = 0, j = 0;
+        bool ok = true;
+        while (j < t.length() && ok)
+        {
+            if (i < s.length() && j < t.length() && s[i] == t[j])
+            {
+                i++, j++;
+            }
+            else
+            {
+
+                if (p1[t[j] - 'a'] > 0)
+                {
+                    p1[t[j] - 'a'] -= 1;
+                    j++;
+                }
+                else
+                {
+                    ok = false;
+                }
+            }
+        }
+        if(s==t){
             cout << "YES";
         }
-        else if(a==0 || b==0){
-            cout << "NO";
-        }
-        else if(a>2*b || b>2*a){
-            cout << "NO";
-        }
-        else if((2*a-b)%3==0 && (2*a-b)>=0){
-            cout << "YES";
-        }
-        else if((2*b-a)%3==0 && (2*b-a)>=0){
+        else if (ok && j == t.length() && i == s.length())
+        {
             cout << "YES";
         }
         else

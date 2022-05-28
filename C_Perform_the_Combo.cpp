@@ -51,27 +51,33 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll a, b;
-        cin >> a >> b;
-        ll d=abs(a-b);
-        if(a==0 && b==0){
-            cout << "YES";
+        ll n,m;
+        cin>>n>>m;
+        string s;
+        cin>>s;
+        vl v(m);
+        rep(i,0,m){
+            cin>>v[i];
         }
-        else if(a==0 || b==0){
-            cout << "NO";
+        sort(all(v));
+        vl cnt(n+1,0);
+        rep(i,0,m){
+            cnt[v[i]]+=1;
         }
-        else if(a>2*b || b>2*a){
-            cout << "NO";
+        cnt[n]=1;
+        repr(i,n-1,0){
+            cnt[i]+=cnt[i+1];
         }
-        else if((2*a-b)%3==0 && (2*a-b)>=0){
-            cout << "YES";
+        // rep(i,1,n+1){
+        //     cout<<cnt[i]<<" ";
+        // }
+        vl res(26,0);
+        rep(i,0,n){
+            ll t=s[i]-'a';
+            res[t]+=cnt[i+1];
         }
-        else if((2*b-a)%3==0 && (2*b-a)>=0){
-            cout << "YES";
-        }
-        else
-        {
-            cout << "NO";
+        rep(i,0,26){
+            cout<<res[i]<<" ";
         }
         cout << endl;
     }

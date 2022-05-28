@@ -41,39 +41,77 @@ typedef map<string, string> mss;
 #define mod 1000000007
 #define INF 10007
 
-
-
 int main()
 {
     FAST;
     // your code goes here
     ll t = 1;
     cin >> t;
+
     while (t--)
     {
-        ll a, b;
-        cin >> a >> b;
-        ll d=abs(a-b);
-        if(a==0 && b==0){
-            cout << "YES";
+
+        ll n;
+        cin >> n;
+        vl v(n);
+        mll m;
+        rep(i, 0, n)
+        {
+            cin >> v[i];
+            m[v[i]]++;
         }
-        else if(a==0 || b==0){
-            cout << "NO";
-        }
-        else if(a>2*b || b>2*a){
-            cout << "NO";
-        }
-        else if((2*a-b)%3==0 && (2*a-b)>=0){
-            cout << "YES";
-        }
-        else if((2*b-a)%3==0 && (2*b-a)>=0){
-            cout << "YES";
-        }
-        else
+        if (n % 2 == 1)
         {
             cout << "NO";
         }
+        else
+        {
+            sort(all(v));
+            vl res;
+            ll i = 0, j = n / 2;
+            while (i < n/2 && j<n)
+            {
+                res.pb(v[i]);
+                res.pb(v[j]);
+                i ++, j ++;
+            }
+
+            bool ok = true;
+            rep(i, 0, res.size())
+            {
+                ll pr = res[(i - 1 + n) % n];
+                ll nt = res[(i + 1) % n];
+
+                if (pr > res[i] && nt > res[i])
+                {
+                    continue;
+                }
+                else if (pr < res[i] && nt < res[i])
+                {
+                    continue;
+                }
+                else
+                {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok)
+            {
+                cout << "YES" << endl;
+                rep(i, 0, sz(res))
+                {
+                    cout << res[i] << " ";
+                }
+            }
+            else
+            {
+                cout << "NO";
+            }
+        }
+
         cout << endl;
     }
+
     return 0;
 }

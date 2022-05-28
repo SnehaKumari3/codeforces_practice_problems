@@ -51,28 +51,29 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll a, b;
-        cin >> a >> b;
-        ll d=abs(a-b);
-        if(a==0 && b==0){
-            cout << "YES";
+        
+        ll n;
+        cin>>n;
+        ll a=n/4,b=n%4,c=n/6,d=n%6;
+        ll mn=-1,mx=-1;
+        if(d==2 || d==4 || d==0){
+            if(d==0){
+                mn=n/6;
+            }
+            else
+            mn=n/6 +1;
         }
-        else if(a==0 || b==0){
-            cout << "NO";
+        if(b==2 || b==0){
+            mx=n/4;
         }
-        else if(a>2*b || b>2*a){
-            cout << "NO";
+        if(n<4){
+            cout<<-1;
         }
-        else if((2*a-b)%3==0 && (2*a-b)>=0){
-            cout << "YES";
-        }
-        else if((2*b-a)%3==0 && (2*b-a)>=0){
-            cout << "YES";
+        else if(mn==-1 && mx==-1 ){
+            cout<<-1;
         }
         else
-        {
-            cout << "NO";
-        }
+        cout<<mn<<" "<<mx;
         cout << endl;
     }
     return 0;

@@ -41,39 +41,44 @@ typedef map<string, string> mss;
 #define mod 1000000007
 #define INF 10007
 
-
-
 int main()
 {
     FAST;
     // your code goes here
     ll t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
     {
-        ll a, b;
-        cin >> a >> b;
-        ll d=abs(a-b);
-        if(a==0 && b==0){
-            cout << "YES";
+
+        ll n,k;
+        cin >> n>>k;
+        int a[n+1][n+1];
+        ll num1=n*n,num2=n*(k-1),ans=0;
+        for(int i=n;i>0;i--){
+            for(int j=n;j>0;j--){
+                if(j>=k){
+                    a[i][j]=num1;
+                    if(j==k){
+                        ans+=num1;
+                    }
+                    num1--;
+                }
+                else{
+                    a[i][j]=num2;
+                    num2--;
+                }
+            }
         }
-        else if(a==0 || b==0){
-            cout << "NO";
+        cout<<ans<<endl;
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=n;j++){
+                cout<<a[i][j]<<" ";
+            }
+            cout<<endl;
         }
-        else if(a>2*b || b>2*a){
-            cout << "NO";
-        }
-        else if((2*a-b)%3==0 && (2*a-b)>=0){
-            cout << "YES";
-        }
-        else if((2*b-a)%3==0 && (2*b-a)>=0){
-            cout << "YES";
-        }
-        else
-        {
-            cout << "NO";
-        }
-        cout << endl;
+        
+        cout<<endl;
     }
+
     return 0;
 }
