@@ -39,54 +39,60 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool compare(pll a, pll b)
-{
-    return a.se > b.se;
-}
-
 int main()
 {
     FAST;
     // your code goes here
-    ll n, k;
-    cin >> n;
-    vl v(n);
-    mll m;
+    ll n, m;
+    cin >> n >> m;
+    char ch;
+    ll a, b;
+    mll m1, m2,m3;
     rep(i, 0, n)
     {
-        cin >> v[i];
-        m[v[i]]++;
-    }
-    cin >> k;
-    
-    vl a1(k),b1(k); 
-    rep(i,0,k){
-        cin>>a1[i];
-    }
-    rep(i,0,k){
-        cin>>b1[i];
-    }
-    ll vs = m[a1[0]], as = m[b1[0]], index = 1;
-    rep(i, 1, k)
-    {
-        ll a, b;
-        a=a1[i];
-        b=b1[i];
-        if (m[a] > vs)
+        cin >> ch >> a >> b;
+        if (ch == 'B')
         {
-            vs = m[a], as = m[b];
-            index = i + 1;
-        }
-        else if (m[a] == vs)
-        {
-            if (m[b] > as)
+            if (m1[a]>0)
             {
-                vs = m[a], as = m[b];
-                index = i + 1;
+                m1[a] = m1[a] + b;
+                
+            }
+            else
+            {
+                m1[a] = b;
+            }
+        }
+        else
+        {
+            if (m2[a] >0)
+            {
+                m2[a] = m2[a] + b;
+                
+            }
+            else
+            {
+                m2[a] = b;
             }
         }
     }
-    cout<<index;
-
+    int t=m;
+    for (auto it = m2.begin(); it != m2.end() && t>0; it++)
+    {
+        m3[it->first]=it->second;
+        t--;
+    }
+    t=m;
+    for (auto it = m3.rbegin(); it != m3.rend() && t>0; it++)
+    {
+        cout << "S " << it->first << " "<< it->second << endl;
+        t--;
+    }
+    t=m;
+    for (auto it = m1.rbegin(); it != m1.rend() && t>0; it++)
+    {
+        cout << "B " << it->first << " "<< it->second << endl;
+        t--;
+    }
     return 0;
 }

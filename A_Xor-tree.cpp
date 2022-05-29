@@ -44,64 +44,53 @@ vl adj[100005];
 
 int vis[100005], a[100005], b[100005];
 ll n;
+set<int> s;
 vl ans;
-void bfs1(int s)
-{
-    int v[n+1];
-    rep(i, 1, n+1)
-    {
-        v[i] = vis[i];
-    }
-    queue<pair<int, int>> q1;
-    int cnt = 1;
-    q1.push({s, cnt});
-    
-    while (!q1.empty())
-    {
-        int curr = q1.front().first;
-        int rel = q1.front().second;
-        
-        v[curr] = 1;
-        q1.pop();
-        cnt=rel+1;
-        for (auto u : adj[s])
-        {
-
-            if (vis[u] == 0)
-            {
-                if (rel % 2 == 1)
-                {
-                    if (a[u] == 0)
-                        a[u] = 1;
-                    else
-                        a[u] = 0;
-                }
-                q1.push({u, cnt});
-            }
-        }
-    }
-}
 
 void bfs(int s)
 {
-    queue<int> q;
-    q.push(s);
+    queue<pair<int, int>> q;
+    int l = 1;
+    q.push({s, l});
     while (!q.empty())
     {
-        
-        int curr = q.front();
+        int curr = q.front().first;
+        int l = q.front().second;
         vis[curr] = 1;
         q.pop();
+        if (l % 2 == 1)
+        {
+            if(o%2==1){
+                if(a[curr]==0){
+                    a[curr]=1;
+                }
+                else{
+                    a[curr]=0;
+                }
+            }
+        }
+        else
+        {
+            if(e%2==1){
+                if(a[curr]==0){
+                    a[curr]=1;
+                }
+                else{
+                    a[curr]=0;
+                }
+            }
+        }
         if (a[curr] != b[curr])
         {
             ans.pb(curr);
-            bfs1(curr);
+            s.insert(l+2);
         }
+
         for (auto u : adj[curr])
         {
             if (vis[u] == 0)
             {
-                q.push(u);
+                q.push({u, l + 1});
             }
         }
     }
@@ -133,10 +122,11 @@ int main()
             cin >> b[i];
         }
         bfs(1);
-        ll res=ans.size();
-        cout<<res<<endl;
-        rep(i,0,res){
-            cout<<ans[i]<<endl;
+        ll res = ans.size();
+        cout << res << endl;
+        rep(i, 0, res)
+        {
+            cout << ans[i] << endl;
         }
         cout << endl;
     }

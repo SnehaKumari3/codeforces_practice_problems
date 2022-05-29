@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
+#include <algorithm>
 using namespace std;
 
-typedef long long ll;
+typedef int64_t ll;
 typedef long double ld;
 typedef double db;
 typedef vector<int> vi;
@@ -24,7 +25,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+
 #define fi first
 #define se second
 #define in insert
@@ -38,55 +39,52 @@ typedef map<string, string> mss;
 #define min3(a, b, c) min(a, min(b, c))
 #define sz(v) ll(v.size())
 #define mod 1000000007
-
-bool compare(pll a, pll b)
-{
-    return a.se > b.se;
-}
+#define INF 10007
 
 int main()
 {
     FAST;
     // your code goes here
-    ll n, k;
-    cin >> n;
-    vl v(n);
-    mll m;
-    rep(i, 0, n)
+    ll t = 1;
+    // cin >> t;
+    while (t--)
     {
-        cin >> v[i];
-        m[v[i]]++;
-    }
-    cin >> k;
-    
-    vl a1(k),b1(k); 
-    rep(i,0,k){
-        cin>>a1[i];
-    }
-    rep(i,0,k){
-        cin>>b1[i];
-    }
-    ll vs = m[a1[0]], as = m[b1[0]], index = 1;
-    rep(i, 1, k)
-    {
-        ll a, b;
-        a=a1[i];
-        b=b1[i];
-        if (m[a] > vs)
-        {
-            vs = m[a], as = m[b];
-            index = i + 1;
+        ll n,m;
+        cin>>n>>m;
+        vl x(n),p(m);
+        rep(i,0,n){
+            cin>>x[i];
         }
-        else if (m[a] == vs)
-        {
-            if (m[b] > as)
-            {
-                vs = m[a], as = m[b];
-                index = i + 1;
+        rep(i,0,m){
+            cin>>p[i];
+        }
+        vl d;
+        rep(i,1,n){
+            d.pb(x[i]-x[i-1]);
+        }
+        ll g=d[0];
+        rep(i,1,d.size()){
+            g=__gcd(g,d[i]);
+        }
+        bool ok=false;
+        ll index=-1;
+        rep(i,0,m){
+            if(g%p[i]==0){
+                ok=true;
+                index=i+1;
+                break;
             }
         }
+        
+        if(ok){
+            cout<<"YES"<<endl;
+            cout<<x[0]<<" "<<index;
+        }
+        else{
+            cout<<"NO";
+        }
+        
     }
-    cout<<index;
 
     return 0;
 }

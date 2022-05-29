@@ -39,54 +39,26 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-bool compare(pll a, pll b)
-{
-    return a.se > b.se;
-}
 
 int main()
 {
     FAST;
     // your code goes here
-    ll n, k;
-    cin >> n;
+    ll n;
+    cin>>n;
     vl v(n);
+    rep(i,0,n){
+        cin>>v[i];
+    }
     mll m;
-    rep(i, 0, n)
-    {
-        cin >> v[i];
+    ll ans=1;
+    rep(i,0,n){
         m[v[i]]++;
     }
-    cin >> k;
-    
-    vl a1(k),b1(k); 
-    rep(i,0,k){
-        cin>>a1[i];
+    for(auto i:m){
+        int t=i.se-1;
+        ans+=max(0,t);
     }
-    rep(i,0,k){
-        cin>>b1[i];
-    }
-    ll vs = m[a1[0]], as = m[b1[0]], index = 1;
-    rep(i, 1, k)
-    {
-        ll a, b;
-        a=a1[i];
-        b=b1[i];
-        if (m[a] > vs)
-        {
-            vs = m[a], as = m[b];
-            index = i + 1;
-        }
-        else if (m[a] == vs)
-        {
-            if (m[b] > as)
-            {
-                vs = m[a], as = m[b];
-                index = i + 1;
-            }
-        }
-    }
-    cout<<index;
-
+    cout<<ans;
     return 0;
 }
