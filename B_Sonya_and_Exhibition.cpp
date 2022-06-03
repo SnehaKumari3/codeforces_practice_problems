@@ -43,12 +43,20 @@ int main()
 {
     FAST;
     // your code goes here
-    ll n, m;
-    cin >> n >> m;
-    mll m;
-    while(m--){
-        
+    ll n,m;
+    cin>>n>>m;
+    string ans="";
+    rep(i,0,m){
+        ll a,b ;
+        cin>>a>>b;
     }
-
+    rep(i,0,n/2){
+        ans+="10";
+    }
+    if(n%2==1){
+        ans+='1';
+    }
+    cout<<ans;
+    
     return 0;
 }

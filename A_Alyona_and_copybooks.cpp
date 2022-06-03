@@ -43,12 +43,30 @@ int main()
 {
     FAST;
     // your code goes here
-    ll n, m;
-    cin >> n >> m;
-    mll m;
-    while(m--){
-        
+    ll n,a,b,c;
+    cin>>n>>a>>b>>c;
+    ll ct[4]={0};
+    ct[1]=a;
+    ct[2]=min(2*a,b);
+    ct[3]=min(3*a,a+b);
+    ct[3]=min(ct[3],c);
+    
+    if(n%4==0){
+        cout<<0;
     }
-
+    else{
+        ll k=4-n%4;
+        ll ans=ct[k];
+        if(k==1){
+            ans=min(ans,ct[2]+ct[3]);
+            ans=min(ans,3*ct[3]);
+        }
+        else if(k==2){
+            ans=min(ans,2*ct[3]);
+        }
+        cout<<ans;
+    }
+    
+    
     return 0;
 }

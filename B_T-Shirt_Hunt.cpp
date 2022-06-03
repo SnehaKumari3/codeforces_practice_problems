@@ -43,12 +43,19 @@ int main()
 {
     FAST;
     // your code goes here
-    ll n, m;
-    cin >> n >> m;
+    ll p, x,y;
+    cin >> p>>x>>y;
     mll m;
-    while(m--){
-        
+    ll j=x/50;
+    j=j%475;
+    rep(i,0,25){
+        j=j*96+42;
+        j=j%475;
+        m[j+26]++;
     }
-
+    for(auto i:m){
+        cout<<i.fi<<endl;
+    }
+    
     return 0;
 }

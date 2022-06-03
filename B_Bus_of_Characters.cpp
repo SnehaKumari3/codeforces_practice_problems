@@ -24,7 +24,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
@@ -39,16 +39,34 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
+
 int main()
 {
     FAST;
     // your code goes here
-    ll n, m;
-    cin >> n >> m;
-    mll m;
-    while(m--){
-        
+    ll n;
+    cin>>n;
+    vpll v;
+    rep(i,0,n){
+        ll a;
+        cin>>a;
+        v.pb({a,i+1});
     }
-
+    sort(all(v));
+    string s;
+    cin>>s;
+    ll i=0,j=n-1;
+    priority_queue<pair<ll,ll>> q;
+    rep(k,0,s.length()){
+        if(s[k]=='0'){
+            cout<<v[i].se<<" ";
+            q.push({v[i].fi,v[i].se});
+            i++;
+        }
+        else{
+            cout<<q.top().se<<" ";
+            q.pop();
+        }
+    }
     return 0;
 }
