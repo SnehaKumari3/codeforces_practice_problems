@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
+#include <algorithm>
 using namespace std;
 
-typedef long long ll;
+typedef int64_t ll;
 typedef long double ld;
 typedef double db;
 typedef vector<int> vi;
@@ -43,45 +44,14 @@ int main()
 {
     FAST;
     // your code goes here
-    ll t;
+    ll t = 1;
     cin >> t;
     while (t--)
     {
-        ll n;
-        cin >> n;
-        vl a(n);
-        rep(i,0,n){
-            cin>>a[i];
-        }
-        ll x=0,y=0;
-        rep(i,0,n){
-            if(i%2==0){
-                x=__gcd(x,a[i]);
-            }
-            else{
-                y=__gcd(y,a[i]);
-            }
-        }
-        ll ok1=1,ok2=1;
-        rep(i,0,n){
-            if(i%2==0 && a[i]%y==0){
-                ok1=0;
-            }
-            if(i%2==1 && a[i]%x==0){
-                ok2=0;
-            }
-            
-        }
-        if(ok2){
-            cout<<x;
-        }
-        else if(ok1){
-            cout<<y;
-        }
-        else{
-            cout<<0;
-        }
-        cout << endl;
+        ll l,r;
+        cin>>l>>r;
+        if(r)
+        cout<<ans;
     }
     return 0;
 }

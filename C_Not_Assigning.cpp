@@ -49,39 +49,58 @@ int main()
     {
         ll n;
         cin >> n;
-        vl a(n);
-        rep(i,0,n){
-            cin>>a[i];
+        mll m;
+        vector<pll> adj[n + 1];
+        rep(i, 0, n - 1)
+        {
+            ll u, v;
+            cin >> u >> v;
+            adj[u].pb({v, i});
+            adj[v].pb({u, i});
         }
-        ll x=0,y=0;
-        rep(i,0,n){
-            if(i%2==0){
-                x=__gcd(x,a[i]);
+
+        int sz = 1, curr;
+        rep(i, 1, n + 1)
+        {
+            if (adj[i].size() > 2)
+            {
+                sz = 0;
             }
-            else{
-                y=__gcd(y,a[i]);
+            if (adj[i].size() == 1)
+            {
+                curr = i;
             }
         }
-        ll ok1=1,ok2=1;
-        rep(i,0,n){
-            if(i%2==0 && a[i]%y==0){
-                ok1=0;
+        if (sz)
+        {
+            vl ans(n - 1, 0);
+            vl vis(n + 1, 0);
+            int w = 2;
+            while (vis[curr] == 0)
+            {
+
+                vis[curr] = 1;
+                for (auto j : adj[curr]){
+                    if (vis[j.fi] == 0)
+                    {
+                        ans[j.se] = w;
+                        w ^= 1;
+                        curr = j.fi;
+                        break;
+                    }
+                }
+                    
             }
-            if(i%2==1 && a[i]%x==0){
-                ok2=0;
+            rep(i,0,n-1){
+                cout<<ans[i]<<" ";
             }
-            
         }
-        if(ok2){
-            cout<<x;
+        else
+        {
+            cout << -1;
         }
-        else if(ok1){
-            cout<<y;
-        }
-        else{
-            cout<<0;
-        }
-        cout << endl;
+        cout<<endl;
     }
+    
     return 0;
 }

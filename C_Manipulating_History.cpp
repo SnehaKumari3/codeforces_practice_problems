@@ -24,7 +24,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
@@ -43,45 +43,19 @@ int main()
 {
     FAST;
     // your code goes here
-    ll t;
+    ll t = 1;
     cin >> t;
     while (t--)
     {
         ll n;
-        cin >> n;
-        vl a(n);
-        rep(i,0,n){
-            cin>>a[i];
+        cin>>n;
+        vector<string> v(2*n);
+        rep(i,0,2*n){
+            cin>>v[i];
         }
-        ll x=0,y=0;
-        rep(i,0,n){
-            if(i%2==0){
-                x=__gcd(x,a[i]);
-            }
-            else{
-                y=__gcd(y,a[i]);
-            }
-        }
-        ll ok1=1,ok2=1;
-        rep(i,0,n){
-            if(i%2==0 && a[i]%y==0){
-                ok1=0;
-            }
-            if(i%2==1 && a[i]%x==0){
-                ok2=0;
-            }
-            
-        }
-        if(ok2){
-            cout<<x;
-        }
-        else if(ok1){
-            cout<<y;
-        }
-        else{
-            cout<<0;
-        }
+        
         cout << endl;
     }
+
     return 0;
 }

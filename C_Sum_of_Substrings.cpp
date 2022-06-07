@@ -43,45 +43,41 @@ int main()
 {
     FAST;
     // your code goes here
+
     ll t;
     cin >> t;
     while (t--)
     {
-        ll n;
-        cin >> n;
-        vl a(n);
-        rep(i,0,n){
-            cin>>a[i];
-        }
-        ll x=0,y=0;
-        rep(i,0,n){
-            if(i%2==0){
-                x=__gcd(x,a[i]);
+        ll n, k;
+        cin >> n >> k;
+        
+        ll l = -1, r = -1,ans=0;
+        string s;
+        cin >> s;
+        rep(i, 0, n)
+        {
+            if (s[i] == '1')
+            {
+                if(l==-1){
+                    l=i;
+                }
+                r=i;
+                ans+=11;
             }
-            else{
-                y=__gcd(y,a[i]);
-            }
         }
-        ll ok1=1,ok2=1;
-        rep(i,0,n){
-            if(i%2==0 && a[i]%y==0){
-                ok1=0;
-            }
-            if(i%2==1 && a[i]%x==0){
-                ok2=0;
-            }
-            
+        bool ok=true;
+        if(r!=-1  && k>=n-1-r){
+            k-=n-1-r;
+            ans-=10;
+            ok=false;
         }
-        if(ok2){
-            cout<<x;
+
+        if(l!=-1 && (l!=r || ok) && k>=l){
+            ans-=1;
         }
-        else if(ok1){
-            cout<<y;
-        }
-        else{
-            cout<<0;
-        }
-        cout << endl;
+        
+        cout << ans << endl;
     }
+
     return 0;
 }

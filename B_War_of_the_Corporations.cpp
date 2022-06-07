@@ -50,28 +50,28 @@ int main()
     {
         string s, t;
         cin >> s >> t;
-        ll i = 0, j = 0, cnt = 0, ans = 0;
-        while (i < s.length())
+        bool ok = true;
+        ll ans = 0,i=0;
+        while (i<=sz(s)-sz(t))
         {
-            if (j == t.length())
-            {
-                j = 0;
-            }
-            if (s[i] == t[j] && j<t.length())
-            {
-                if (j == t.length() - 1)
-                {
-                    ans++;
+            if(s[i]==t[0]){
+                
+                int j=i,k=0;
+                while(j<sz(s) && k<sz(t) && s[j]==t[k]){
+                    j++,k++;
                 }
-                j++;
+                if(k==sz(t)){
+                    s[k-1]='#',ans++,i=j;
+                }
+                else{
+                    i++;
+                }
             }
-            else
-            {
-                j=0;
+            else{
+                i++;
             }
-            i++;
         }
-        cout << ans;
+        cout<<ans;
     }
     return 0;
 }

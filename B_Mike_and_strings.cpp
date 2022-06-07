@@ -4,7 +4,7 @@ using namespace std;
 typedef long long ll;
 typedef long double ld;
 typedef double db;
-typedef vector<int> vi;
+typedef vector<long long int> vi;
 typedef vector<vi> vvi;
 typedef vector<ll> vl;
 typedef vector<vl> vvl;
@@ -39,99 +39,53 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
-ll shift(string a, string b)
-{
-    ll mx = a.length() - 1;
-    rep(i, 0, mx + 1)
-    {
-        bool f = true;
-        rep(j, 0, a.length())
-        {
-            if (a[j] != b[(j + i) % a.length()])
-            {
-                f = false;
-                break;
-            }
-        }
-        if (f)
-        {
-            return i;
-        }
-    }
-    return -1;
-}
 int main()
 {
-    FAST;
-    // your code goes here
-
     ll n;
-    cin >> n;
-    vector<string> t;
-    map<string, ll> m;
-    rep(i, 0, n)
+    cin>>n;
+    vector<string>v;
+    rep(i,0,n)
     {
-        string tmp;
-        cin >> tmp;
-        m[tmp]++;
-        sort(all(tmp));
-        t.pb(tmp);
+        string s;
+        cin>>s;
+        v.pb(s);
     }
-    bool ok = true;
-    rep(i, 1, n)
+    map<string,ll>mp;
+    int f=0;
+    ll mini=INT_MAX;
+    rep(i,0,n)
     {
-        if (t[i] != t[0])
+        ll cnt=0;
+        rep(j,0,n)
         {
-            ok = false;
-            break;
+                string s1=v[j];
+                ll k;
+                
+                for(k=0;k<s1.size();k++)
+                {
+                    if(s1==v[i])
+                    {
+                        cnt+=k;
+                        break;
+                    }
+                    s1.pb(s1[0]);
+                    s1.erase(s1.begin());
+                }
+                if(s1!=v[i])
+                {
+                    f=1;
+                    break;
+                }
+                
         }
+        mini=min(mini,cnt);
     }
-
-    if (ok)
+    if(f)
     {
-        ll ans = -1;
-        for (auto i : m)
-        {
-            ll res = 0;
-            for (auto j : m)
-            {
-                if (i.fi != j.fi)
-                {
-                    ll t1 = shift(i.fi, j.fi);
-                    if (t1 == -1)
-                    {
-                        ok = false;
-                    }
-                    else
-                    {
-                        res += t1 * j.se;
-                    }
-                }
-            }
-            if (ok)
-            {
-                if (ans == -1)
-                {
-                    ans = res;
-                }
-                else
-                {
-                    ans = min(ans, res);
-                }
-            }
-            else{
-                break;
-            }
-        }
-        if(ok)
-        cout << ans;
-        else
-        cout<<-1;
+        cout<<-1<<endl;
     }
     else
     {
-        cout << -1;
+        cout<<mini<<endl;
     }
-
-    return 0;
 }

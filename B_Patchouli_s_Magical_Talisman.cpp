@@ -50,10 +50,10 @@ int main()
         int64_t n, s = 0;
         cin >> n;
         ll o = 0, e = 0;
-        vl v;
+        vector<int64_t> v;
         rep(i, 0, n)
         {
-            ll a;
+            int64_t a;
             cin >> a;
             v.pb(a);
             s += a;
@@ -72,42 +72,50 @@ int main()
         }
         else if (o == 0)
         {
-            bool flag = false;
-            rep(i, 0, sz(v))
-            {
-                if (v[i] % 2 == 0)
-                {
-                    ll t = v[i] / 2;
-                    if (t % 2 == 1)
-                    {
-                        flag = true;
-                        break;
-                    }
-                }
-            }
+
             int64_t ans1 = n - 1;
             while (s % 2 == 0)
             {
                 s /= 2;
                 ans1++;
             }
-
-            if (flag && sz(v) > 1)
+            int64_t ans2 = -1;
+            rep(i, 0, sz(v))
             {
-                int64_t ans = 2;
-                e -= 2;
+                if (v[i] % 2 == 0)
+                {
+                    int64_t t = 0;
+                    while (v[i] % 2 == 0)
+                    {
+                        v[i] /= 2;
+                        t++;
+                    }
+                    if (ans2 == -1)
+                    {
+                        ans2 = t;
+                    }
+                    else
+                    {
+                        ans2 = min(ans2, t);
+                    }
+                }
+            }
+
+            if (ans2 != -1)
+            {
+
+                e -= 1;
                 if (e > 0)
                 {
-                    ans += e;
+                    ans2 += e;
                 }
-                ans1=min(ans,ans1);
+                ans1 = min(ans2, ans1);
             }
-            cout<<ans1;
-            
+            cout << ans1;
         }
         else
         {
-            int64_t ans=e;
+            cout << e;
         }
         cout << endl;
     }

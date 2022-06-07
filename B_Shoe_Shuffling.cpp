@@ -43,45 +43,52 @@ int main()
 {
     FAST;
     // your code goes here
+    
     ll t;
-    cin >> t;
-    while (t--)
-    {
+    cin>>t;
+    while(t--){
         ll n;
-        cin >> n;
-        vl a(n);
+        cin>>n;
+        vpll v;
+        mll m;
         rep(i,0,n){
-            cin>>a[i];
+            ll a;
+            cin>>a;
+            m[a]++;
+            v.pb({a,i});
         }
-        ll x=0,y=0;
-        rep(i,0,n){
-            if(i%2==0){
-                x=__gcd(x,a[i]);
-            }
-            else{
-                y=__gcd(y,a[i]);
+        bool ok=true;
+        for(auto i:m){
+            if(i.se==1){
+                ok=false;
+                break;
             }
         }
-        ll ok1=1,ok2=1;
-        rep(i,0,n){
-            if(i%2==0 && a[i]%y==0){
-                ok1=0;
+        if(ok){
+            sort(all(v));
+            vpll ans;
+            ll start=0,i;
+            for(i=1;i<n;i++){
+                if(v[i].fi==v[i-1].fi){
+                    ans.pb({v[i].se,v[i-1].se +1});
+                }
+                else{
+                    ans.pb({v[start].se,v[i-1].se +1});
+                    start=i;
+                }
             }
-            if(i%2==1 && a[i]%x==0){
-                ok2=0;
+            ans.pb({v[start].se,v[i-1].se +1});
+            sort(all(ans));
+            rep(i,0,sz(ans)){
+                cout<<ans[i].se<<" ";
             }
-            
-        }
-        if(ok2){
-            cout<<x;
-        }
-        else if(ok1){
-            cout<<y;
         }
         else{
-            cout<<0;
+            cout<<-1;
         }
-        cout << endl;
+        cout<<endl;
     }
+    
+    
     return 0;
 }

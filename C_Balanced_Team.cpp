@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
+#include <algorithm>
 using namespace std;
 
-typedef long long ll;
+typedef int64_t ll;
 typedef long double ld;
 typedef double db;
 typedef vector<int> vi;
@@ -43,45 +44,37 @@ int main()
 {
     FAST;
     // your code goes here
-    ll t;
-    cin >> t;
+    ll t = 1;
+    // cin >> t;
     while (t--)
     {
         ll n;
         cin >> n;
-        vl a(n);
-        rep(i,0,n){
-            cin>>a[i];
+        mll m;
+        rep(i, 0, n)
+        {
+            ll a;
+            cin>>a;
+            m[a]++;
         }
-        ll x=0,y=0;
-        rep(i,0,n){
-            if(i%2==0){
-                x=__gcd(x,a[i]);
+        ll ans=0;
+        vpll v;
+        for(auto i:m){
+            v.pb({i.fi,i.se});
+        }
+        rep(i,0,sz(v)){
+            ll t=0;
+            rep(j,i,i+6){
+                if(j<n && (v[j].fi-v[i].fi)<=5){
+                    t+=v[j].se;
+                }
+                else{
+                    break;
+                }
             }
-            else{
-                y=__gcd(y,a[i]);
-            }
+            ans=max(ans,t);
         }
-        ll ok1=1,ok2=1;
-        rep(i,0,n){
-            if(i%2==0 && a[i]%y==0){
-                ok1=0;
-            }
-            if(i%2==1 && a[i]%x==0){
-                ok2=0;
-            }
-            
-        }
-        if(ok2){
-            cout<<x;
-        }
-        else if(ok1){
-            cout<<y;
-        }
-        else{
-            cout<<0;
-        }
-        cout << endl;
+        cout << ans;
     }
     return 0;
 }

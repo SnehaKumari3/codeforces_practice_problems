@@ -43,45 +43,26 @@ int main()
 {
     FAST;
     // your code goes here
+    
     ll t;
-    cin >> t;
-    while (t--)
-    {
+    cin>>t;
+    while(t--){
         ll n;
-        cin >> n;
-        vl a(n);
-        rep(i,0,n){
-            cin>>a[i];
-        }
-        ll x=0,y=0;
-        rep(i,0,n){
-            if(i%2==0){
-                x=__gcd(x,a[i]);
+        cin>>n;
+        ll e=0,o=0;
+        while(n--){
+            ll a;
+            cin>>a;
+            if(a%2){
+                o++;
             }
             else{
-                y=__gcd(y,a[i]);
+                e++;
             }
         }
-        ll ok1=1,ok2=1;
-        rep(i,0,n){
-            if(i%2==0 && a[i]%y==0){
-                ok1=0;
-            }
-            if(i%2==1 && a[i]%x==0){
-                ok2=0;
-            }
-            
-        }
-        if(ok2){
-            cout<<x;
-        }
-        else if(ok1){
-            cout<<y;
-        }
-        else{
-            cout<<0;
-        }
-        cout << endl;
+        cout<<min(o,e)<<endl;
     }
+    
+    
     return 0;
 }

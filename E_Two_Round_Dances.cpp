@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
+#include <algorithm>
+
 using namespace std;
 
-typedef long long ll;
+typedef int64_t ll;
 typedef long double ld;
 typedef double db;
 typedef vector<int> vi;
@@ -24,7 +26,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+
 #define fi first
 #define se second
 #define in insert
@@ -38,50 +40,28 @@ typedef map<string, string> mss;
 #define min3(a, b, c) min(a, min(b, c))
 #define sz(v) ll(v.size())
 #define mod 1000000007
+#define INF 10007
+ll fact(ll n) {
+   if ((n==0)||(n==1))
+   return 1;
+   else
+   return n*fact(n-1);
+}
 
 int main()
 {
     FAST;
     // your code goes here
-    ll t;
-    cin >> t;
+    ll t = 1;
+    // cin >> t;
     while (t--)
     {
         ll n;
-        cin >> n;
-        vl a(n);
-        rep(i,0,n){
-            cin>>a[i];
-        }
-        ll x=0,y=0;
-        rep(i,0,n){
-            if(i%2==0){
-                x=__gcd(x,a[i]);
-            }
-            else{
-                y=__gcd(y,a[i]);
-            }
-        }
-        ll ok1=1,ok2=1;
-        rep(i,0,n){
-            if(i%2==0 && a[i]%y==0){
-                ok1=0;
-            }
-            if(i%2==1 && a[i]%x==0){
-                ok2=0;
-            }
-            
-        }
-        if(ok2){
-            cout<<x;
-        }
-        else if(ok1){
-            cout<<y;
-        }
-        else{
-            cout<<0;
-        }
-        cout << endl;
+        cin>>n;
+        n=(2*fact(n-1))/n;
+        cout<<n;
+        
     }
+
     return 0;
 }
