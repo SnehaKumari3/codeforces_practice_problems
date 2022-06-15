@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 typedef long long ll;
@@ -24,7 +25,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define ppb pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
@@ -44,40 +45,70 @@ int main()
     FAST;
     // your code goes here
 
-    ll t;
+    ll t = 1;
     cin >> t;
     while (t--)
     {
-        ll n, k;
-        cin >> n >> k;
+
         
-        ll l = -1, r = -1,ans=0;
         string s;
         cin >> s;
-        rep(i, 0, n)
-        {
-            if (s[i] == '1')
-            {
-                if(l==-1){
-                    l=i;
+        ll n = s.length();
+        ll o=0;
+        rep(i,0,n){
+            if(s[i]=='1')
+            o++;
+        }
+        vl p(o+1,0),sf(o+1,0);
+        ll i=0,O=0,j=0;
+        while(i<=o){
+            while(j<n && s[j]!='1'){
+                j++;
+                O++;
+            }
+            
+            if(i<=o){
+                p[i]=O;
+            }
+            j++;
+            i++;
+        }
+        i=0,O=0,j=n-1;
+        while(i<=o){
+            while(j>=0 && s[j]!='1'){
+                j--;
+                O++;
+            }
+            if(i<=o){
+                sf[i]=O;
+            }
+            j--;
+            i++;
+        }
+
+        ll ans=o,k=ans;
+        j=0;
+        while(j<=k){
+            ll i=(j+k)/2;
+            bool ok=false;
+            rep(j,0,i+1){
+                ll l=j,r=i-l;
+                if(max(i,O-p[l]-sf[r])<=i){
+                    ok=true;
+                    break;
                 }
-                r=i;
-                ans+=11;
+                
+            }
+            if(ok){
+                ans=i;
+                k=i-1;
+            }
+            else{
+                j=i+1;
             }
         }
-        bool ok=true;
-        if(r!=-1  && k>=n-1-r){
-            k-=n-1-r;
-            ans-=10;
-            ok=false;
-        }
-
-        if(l!=-1 && (l!=r || ok) && k>=l){
-            ans-=1;
-        }
-        
-        cout << ans << endl;
+        cout<<ans;
+        cout << endl;
     }
-
     return 0;
 }

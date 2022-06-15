@@ -39,6 +39,15 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
+bool same(vl a,vl b){
+    rep(i,0,sz(a)){
+        if(a[i]!=b[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
 int main()
 {
     FAST;
@@ -49,18 +58,29 @@ int main()
     while(t--){
         ll n;
         cin>>n;
-        ll e=0,o=0;
-        while(n--){
-            ll a;
-            cin>>a;
-            if(a%2){
-                o++;
+        vl a(n),b(n);
+        rep(i,0,n){
+            cin>>a[i];
+        }
+
+        rep(i,0,n){
+            cin>>b[i];
+        }
+        rep(i,0,n){
+            if(i==0){
+                cout<<b[i]-a[i]<<" ";
             }
             else{
-                e++;
+                if(a[i]>b[i-1]){
+                    cout<<b[i]-a[i]<<" ";
+                }
+                else{
+                    cout<<b[i]-b[i-1]<<" ";
+                }
             }
         }
-        cout<<min(o,e)<<endl;
+        
+        cout<<endl;
     }
     return 0;
 }

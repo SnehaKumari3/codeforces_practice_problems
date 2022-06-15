@@ -39,28 +39,37 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
+int v[1000005];
+int a[10][1000005];
+
+
 int main()
 {
     FAST;
     // your code goes here
     
-    ll t;
-    cin>>t;
+    ll t=1;
+    // cin>>t;
     while(t--){
         ll n;
         cin>>n;
-        ll e=0,o=0;
-        while(n--){
-            ll a;
-            cin>>a;
-            if(a%2){
-                o++;
+        vl v(n);
+        rep(i,0,n){
+            cin>>v[i];
+        }
+        rep(i,0,n){
+            if(i==0){
+                cout<<abs(v[i+1]-v[i])<<" "<<abs(v[n-1]-v[i])<<endl;
+            }
+            else if(i==n-1){
+                cout<<abs(v[i]-v[i-1])<<" "<<abs(v[i]-v[0])<<endl;
             }
             else{
-                e++;
+                ll mn=min(abs(v[i]-v[i-1]),abs(v[i+1]-v[i]));
+                ll mx=max(abs(v[n-1]-v[i]),abs(v[i]-v[0]));
+                cout<<mn<<" "<<mx<<endl;
             }
         }
-        cout<<min(o,e)<<endl;
     }
     return 0;
 }

@@ -24,7 +24,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
@@ -39,28 +39,61 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
+ll fun(ll n)
+{
+    ll ans = 0;
+    while (n > 0)
+    {
+        n = n & (n - 1);
+        ans++;
+    }
+    return ans;
+}
+
 int main()
 {
     FAST;
     // your code goes here
-    
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n;
-        cin>>n;
-        ll e=0,o=0;
-        while(n--){
-            ll a;
-            cin>>a;
-            if(a%2){
-                o++;
+
+    ll t = 1;
+    cin >> t;
+    while (t--)
+    {
+        string s;
+        cin>>s;
+        ll i=0;
+        vl ans;
+        ll cnt=0;
+        while(i<s.length()){
+            if(s[i]=='o'){
+                if(i+2<s.length() && s[i+1]=='n' && s[i+2]=='e'){
+                    ans.pb(i+2+cnt);
+                    s.erase(s.begin()+i+1);
+                    cnt++;
+                }
             }
-            else{
-                e++;
+            else if(s[i]=='t'){
+                if(i+4<s.length() && s[i+1]=='w' && s[i+2]=='o' && s[i+3]=='n' && s[i+4]=='e'){
+                    ans.pb(i+3+cnt);
+                    s.erase(s.begin()+i+2);
+                    cnt++;
+                }
+                if(i+2<s.length() && s[i+1]=='w' && s[i+2]=='o'){
+                    ans.pb(i+2+cnt);
+                    s.erase(s.begin()+i+1);
+                    cnt++;
+                }
             }
+            i++;
+            
+            
         }
-        cout<<min(o,e)<<endl;
+        
+        cout<<sz(ans)<<endl;
+        rep(i,0,sz(ans)){
+            cout<<ans[i]<<" ";
+        }
+        cout << endl;
     }
     return 0;
 }

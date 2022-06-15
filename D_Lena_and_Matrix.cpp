@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 typedef long long ll;
@@ -24,13 +25,13 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
 #define mp make_pair
-#define rep(i, a, n) for (ll i = a; i < n; i++)
-#define repr(i, n, b) for (ll i = n; i > b; i--)
+#define rep(i, a, n) for (int i = a; i < n; ++i)
+#define repr(i, n, b) for (int i = n; i > b; --i)
 #define repv(v) for (auto x : v)
 #define all(v) v.begin(), v.end()
 #define mem(a, b) memset(a, b, sizeof a)
@@ -39,28 +40,55 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
+
+
+int t,n,m,ans,tmp,x,y,l[1000],r[1000];
+char a[1000][1000];
+
 int main()
 {
     FAST;
     // your code goes here
-    
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n;
-        cin>>n;
-        ll e=0,o=0;
-        while(n--){
-            ll a;
-            cin>>a;
-            if(a%2){
-                o++;
-            }
-            else{
-                e++;
+
+    cin >> t;
+    while (t--)
+    {
+        ll n,m;
+        cin>>n>>m;
+        char a[n][m];
+        rep(i,0,n){
+            l[i]=-1;
+        }
+        ans=1e9;
+        rep(i,0,n){
+            rep(j,0,m){
+                cin>>a[i][j];
+                if(a[i][j]=='B'){
+                    if(l[i]==-1){
+                        l[i]=j;
+                    }
+                    r[i]=j;
+                }
             }
         }
-        cout<<min(o,e)<<endl;
+        
+        
+        rep(i,0,n){
+            rep(j,0,m){
+                tmp=0;
+                rep(k,0,n){
+                    if(l[k]!=-1)
+                    tmp=max(tmp,abs(k-i)+max(abs(l[k]-j),abs(r[k]-j)));
+                }
+                if(ans>tmp){
+                    ans=tmp;
+                    x=i,y=j;
+                }
+            }
+        }
+        
+        cout<<x+1<<" "<<y+1;
+        cout<<endl;
     }
     return 0;
 }

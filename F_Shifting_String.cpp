@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 typedef long long ll;
@@ -24,7 +25,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
@@ -39,28 +40,48 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
+ll lcm(ll a,ll b){
+    return (a*b)/__gcd(a,b);
+}
 int main()
 {
     FAST;
     // your code goes here
-    
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n;
-        cin>>n;
-        ll e=0,o=0;
-        while(n--){
+
+    ll t = 1;
+    cin >> t;
+    while (t--)
+    {
+        ll n,ans=1;
+        cin >> n;
+        string s;
+        cin >> s;
+        vl vis(n+1, 0);
+        mll m;
+        rep(i, 0, n)
+        {
             ll a;
-            cin>>a;
-            if(a%2){
-                o++;
-            }
-            else{
-                e++;
+            cin >> a;
+            m[i + 1] = a;
+        }
+        rep(i, 1, n+1)
+        {
+            if (!vis[i])
+            {
+                string t;
+                for (int j = i; !vis[j]; j = m[j])
+                {
+                    vis[j] = 1;
+                    t += s[j - 1];
+                }
+                
+                int cnt = (t + t).find(t, 1);
+                ans = lcm(ans, cnt);
             }
         }
-        cout<<min(o,e)<<endl;
+        
+        cout << ans;
+        cout << endl;
     }
     return 0;
 }

@@ -49,18 +49,21 @@ int main()
     while(t--){
         ll n;
         cin>>n;
-        ll e=0,o=0;
-        while(n--){
-            ll a;
-            cin>>a;
-            if(a%2){
-                o++;
-            }
-            else{
-                e++;
-            }
+        ll x=n/3;
+        ll r=n%3;
+        if(n==7){
+            cout<<2<<" "<<4<<" "<<1<<endl;
         }
-        cout<<min(o,e)<<endl;
+        else if(r==0){
+            cout<<x<<" "<<x+1<<" "<<x-1<<endl;
+        }
+        else if(r==2){
+            cout<<x+1<<" "<<x+2<<" "<<x-1<<endl;
+        }
+        else{
+            
+            cout<<x+1<<" "<<x+2<<" "<<x-2<<endl;
+        }
     }
     return 0;
 }

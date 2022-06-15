@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 typedef long long ll;
@@ -24,7 +25,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
@@ -43,24 +44,44 @@ int main()
 {
     FAST;
     // your code goes here
-    
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n;
-        cin>>n;
-        ll e=0,o=0;
-        while(n--){
-            ll a;
-            cin>>a;
-            if(a%2){
-                o++;
+
+    ll t = 1;
+    cin >> t;
+    while (t--)
+    {
+        ll n, k;
+        cin >> n >> k;
+        vl v(n);
+        k++;
+        rep(i, 0, n)
+        {
+            cin >> v[i];
+        }
+        deque<ll> d;
+        d.push_back(v[0]);
+        ll ans = 0;
+        rep(i, 1, n)
+        {
+            if (d.back() < 2 * v[i])
+            {
+                d.push_back(v[i]);
             }
-            else{
-                e++;
+            else
+            {
+                if (d.size() >= k)
+                {
+                    ans += (d.size() - k) + 1;
+                }
+                d.clear();
+                d.pb(v[i]);
             }
         }
-        cout<<min(o,e)<<endl;
+        if (d.size() >= k)
+        {
+            ans += (d.size() - k) + 1;
+        }
+        cout << ans;
+        cout << endl;
     }
     return 0;
 }

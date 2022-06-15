@@ -24,7 +24,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
@@ -39,28 +39,59 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
+int v[1000005];
+int a[10][1000005];
+
 int main()
 {
     FAST;
     // your code goes here
-    
-    ll t;
-    cin>>t;
-    while(t--){
+
+    ll t = 1;
+    // cin>>t;
+    while (t--)
+    {
         ll n;
         cin>>n;
-        ll e=0,o=0;
-        while(n--){
-            ll a;
-            cin>>a;
-            if(a%2){
-                o++;
+        string s=to_string(n);
+        queue<string> q;
+        q.push(s);
+        bool ok=false;
+        ll ans=0;
+        while(!q.empty( ) && !ok){
+            s=q.front();
+            // cout<<s<<endl;
+            q.pop();
+            ll t=stoi(s);
+            int x=sqrt(t);
+            if(x*x==t){
+                ok=true;
+                ans=s.length();
             }
             else{
-                e++;
+                for(int i=0;i<s.length();i++){
+                    string tmp="";
+                    for(int j=0;j<s.length();j++){
+                        if(j!=i){
+                            tmp+=s[j];
+                        }
+                    }
+                    if(tmp.length()>0 && tmp[0]!='0'){
+                        q.push(tmp);
+                    }
+                }
             }
         }
-        cout<<min(o,e)<<endl;
+
+        if(ok){
+            s=to_string(n);
+            ans=s.length()-ans;
+            cout<<ans;
+        }
+        else{
+            cout<<-1;
+        }
+        cout<<endl;
     }
     return 0;
 }

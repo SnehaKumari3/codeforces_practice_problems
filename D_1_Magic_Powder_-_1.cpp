@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 typedef long long ll;
@@ -24,13 +25,13 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
 #define mp make_pair
-#define rep(i, a, n) for (ll i = a; i < n; i++)
-#define repr(i, n, b) for (ll i = n; i > b; i--)
+#define rep(i, a, n) for (int i = a; i < n; ++i)
+#define repr(i, n, b) for (int i = n; i > b; --i)
 #define repv(v) for (auto x : v)
 #define all(v) v.begin(), v.end()
 #define mem(a, b) memset(a, b, sizeof a)
@@ -39,28 +40,56 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
+
+
+
 int main()
 {
     FAST;
     // your code goes here
-    
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n;
-        cin>>n;
-        ll e=0,o=0;
-        while(n--){
-            ll a;
-            cin>>a;
-            if(a%2){
-                o++;
+    ll t=1;
+    // cin >> t;
+    while (t--)
+    {
+        ll n,k;
+        cin>>n>>k;
+        vl a(n),b(n);
+        rep(i,0,n){
+            cin>>a[i];
+        }
+        rep(i,0,n){
+            cin>>b[i];
+        }
+        ll ans=0;
+        bool ok=true;
+        while(ok){
+            ll t=INT_MAX;
+            rep(i,0,n){
+                t=min(t,b[i]/a[i]);
+            }
+            if(t==0){
+                rep(i,0,n){
+                    if(b[i]<a[i]){
+                        ll d=a[i]-b[i];
+                        if(d>k){
+                            ok=false;
+                        }
+                        else{
+                            b[i]=a[i];
+                            k-=d;
+                        }
+                    }
+                }
             }
             else{
-                e++;
+                ans+=t;
+                rep(i,0,n){
+                    b[i]-=a[i]*t;
+                }
             }
         }
-        cout<<min(o,e)<<endl;
+        cout<<ans;
+        cout<<endl;
     }
     return 0;
 }

@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 typedef long long ll;
@@ -24,7 +25,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
@@ -39,28 +40,47 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
+
+
+vector<int> adj[300005];
+int dfs(int s,int p=-1){
+    rep(i,0,sz(adj[s])){
+        if(adj[s][i]==p){
+            adj[s].erase(adj[s].begin()+i);
+        }
+    }
+    if(adj[s].size()==0)
+        return 1;
+    if(adj[s].size()==1){
+        return 2;
+    }
+    return min(dfs(adj[s][0],s),dfs(adj[s][1],s))+2;
+}
+
+
 int main()
 {
     FAST;
     // your code goes here
-    
-    ll t;
-    cin>>t;
-    while(t--){
+
+    ll t = 1;
+    cin >> t;
+    while (t--)
+    {
+        rep(i,1,300006){
+            adj[i].clear();
+        }
         ll n;
         cin>>n;
-        ll e=0,o=0;
-        while(n--){
-            ll a;
-            cin>>a;
-            if(a%2){
-                o++;
-            }
-            else{
-                e++;
-            }
+        rep(i,1,n){
+            ll u,v;
+            cin>>u>>v;
+            adj[u].pb(v);
+            adj[v].pb(u);
         }
-        cout<<min(o,e)<<endl;
+
+        cout<<n-dfs(1,-1);
+        cout<<endl;
     }
     return 0;
 }
