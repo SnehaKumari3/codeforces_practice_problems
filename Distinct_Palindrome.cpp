@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
-#include <algorithm>
+
 using namespace std;
 
-typedef int64_t ll;
+typedef long long ll;
 typedef long double ld;
 typedef double db;
 typedef vector<int> vi;
@@ -25,7 +25,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
@@ -44,42 +44,42 @@ int main()
 {
     FAST;
     // your code goes here
-    ll t;
-    cin>>t;
-    while(t--){
-        vl v(3);
-        rep(i,0,3){
-            cin>>v[i];
-        }
-        sort(all(v));
-        int64_t t=0;
-        rep(i,0,2){
-            t+=v[2]-v[i];
-        }
-        bool ok=true,f=false;
-        int64_t tmp=1,s=0;
-        while(ok){
-            s+=tmp;
-            if(s%t==0){
-                f=true;
-                ok=false;
-                break;
-            }
-            else if(s>t){
-                ok=false;
-            }
-            else{
-                tmp*=2;
-            }
-        }
 
-        if(f){
-            cout<<"YES";
+    ll t = 1;
+    cin >> t;
+    while (t--)
+    {
+        ll n, k;
+        cin >> n >> k;
+        string t="";
+        char ch='a';
+        rep(i,0,k){
+            t+=ch;
+            ch++;
+        }
+        // cout<<t<<endl;
+        string ans="";
+        ll j=0;
+        rep(i,0,(n+1)/2){
+            ans+=t[j%(k)];
+            j++;
+        }
+        if(j<k){
+            cout<<-1;
         }
         else{
-            cout<<"NO";
+            cout<<ans;
+            reverse(all(ans));
+            ll j=0;
+            if(n%2==1){
+                j=1;
+            }
+            rep(i,0,n-sz(ans)){
+                cout<<ans[j];
+                j++;
+            }
         }
-        cout<<endl;
+        cout << endl;
     }
     return 0;
 }

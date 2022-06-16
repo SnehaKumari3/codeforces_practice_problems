@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
-#include <algorithm>
+
 using namespace std;
 
-typedef int64_t ll;
+typedef long long ll;
 typedef long double ld;
 typedef double db;
 typedef vector<int> vi;
@@ -25,7 +25,7 @@ typedef map<string, string> mss;
     cout.tie(NULL);
 #define pb push_back
 #define pf push_front
-#define pop pop_back
+#define pp pop_back
 #define fi first
 #define se second
 #define in insert
@@ -40,46 +40,57 @@ typedef map<string, string> mss;
 #define sz(v) ll(v.size())
 #define mod 1000000007
 
+ll lcm(ll a, ll b)
+{
+    return a / (__gcd(a, b)) * b;
+}
+
 int main()
 {
     FAST;
     // your code goes here
-    ll t;
-    cin>>t;
-    while(t--){
-        vl v(3);
-        rep(i,0,3){
-            cin>>v[i];
+
+    ll t = 1;
+    cin >> t;
+    while (t--)
+    {
+        ll n;
+        cin >> n;
+        ll ans = 0;
+        if (n == 2)
+        {
+            cout << 1;
         }
-        sort(all(v));
-        int64_t t=0;
-        rep(i,0,2){
-            t+=v[2]-v[i];
+        else if (n == 4)
+        {
+            cout << 3;
         }
-        bool ok=true,f=false;
-        int64_t tmp=1,s=0;
-        while(ok){
-            s+=tmp;
-            if(s%t==0){
-                f=true;
-                ok=false;
-                break;
+        else
+        {
+            for (ll i = 1; i * i <= n; i++)
+            {
+                if (n % i == 0)
+                {
+                    ans += 2;
+                    ll t = n / i;
+                    if (t != i && t < n)
+                    {
+                        ll tmp = __gcd(t, n - t) + lcm(t, n - t);
+                        if (tmp == n)
+                        {
+                            ans += 2;
+                        }
+                        if (t == (n - t))
+                        {
+                            ans--;
+                        }
+                    }
+                }
             }
-            else if(s>t){
-                ok=false;
-            }
-            else{
-                tmp*=2;
-            }
+            cout << ans;
         }
 
-        if(f){
-            cout<<"YES";
-        }
-        else{
-            cout<<"NO";
-        }
-        cout<<endl;
+        cout << endl;
     }
     return 0;
 }
