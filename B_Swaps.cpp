@@ -30,6 +30,7 @@ typedef map<string, string> mss;
 #define se second
 #define in insert
 #define mp make_pair
+#define mem0(a) memset(a, 0, sizeof(a))
 #define rep(i, a, n) for (ll i = a; i < n; i++)
 #define repr(i, n, b) for (ll i = n; i > b; i--)
 #define repv(v) for (auto x : v)
@@ -48,52 +49,25 @@ int main()
     {
         ll n;
         cin >> n;
-        vpll o, e;
-        rep(i, 0, n)
-        {
-            ll a;
-            cin >> a;
-            o.pb({a, i});
+        vl v(2*n + 1,0);
+        ll x;
+        rep(i,0,n){
+            cin>>x;
+            v[x]=i;
         }
-        rep(i, 0, n)
-        {
-            ll a;
-            cin >> a;
-            e.pb({a, i});
+        rep(i,0,n){
+            cin>>x;
+            v[x]=i;
         }
-        if (o[0].fi < e[0].fi)
-        {
-            cout << 0 << endl;
-        }
-        else
-        {
-
-            ll index1 = 0, index2 = 0;
-            rep(i, 0, n)
-            {
-                if (o[i].fi < e[0].fi)
-                {
-                    index1 = i;
-                    break;
-                }
+        ll ans=INT_MAX;
+        ll index=n;
+        for(ll i=2*n ;i>=1;i-=2){
+            if(v[i]<index){
+                index=v[i];
             }
-            rep(i, 0, n)
-            {
-                if (e[i].fi > o[0].fi)
-                {
-                    index2 = i;
-                    break;
-                }
-            }
-            ll ans = min(index1, index2);
-            sort(all(o));
-            sort(all(e));
-
-            rep(i, 0, n)
-            {
-                ans = min(ans, o[i].se + e[i].se);
-            }
-            cout << ans << endl;
+            ans=min(ans,index+v[i-1]);
         }
+        cout<<ans;
+        cout<<endl;
     }
 }

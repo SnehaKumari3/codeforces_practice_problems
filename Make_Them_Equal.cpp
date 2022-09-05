@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include <algorithm>
+
 using namespace std;
 
 typedef int64_t ll;
@@ -39,47 +39,46 @@ typedef map<string, string> mss;
 #define min3(a, b, c) min(a, min(b, c))
 #define sz(v) ll(v.size())
 #define mod 1000000007
+ll rem(ll a, ll b, ll c)
+{
+    return a % 2 + b % 2 + c % 2;
+}
 
+string fun(ll a, ll b, ll c)
+{
+    if (a == b && b == c)
+        return "YES";
+    if (a + b + c == 1)
+        return "NO";
+    if (rem(a, b, c) == 0 || rem(a, b, c) == 3)
+        return "NO";
+
+    if (a % 2 == b % 2)
+        c++;
+    else if (c % 2 == b % 2)
+        a++;
+    else if (c % 2 == a % 2)
+        b++;
+    a = a >> 1;
+    b = b >> 1;
+    c = c >> 1;
+    return fun(a, b, c);
+}
 int main()
 {
     FAST;
     // your code goes here
     ll t;
-    cin>>t;
-    while(t--){
+    cin >> t;
+    while (t--)
+    {
         vl v(3);
-        rep(i,0,3){
-            cin>>v[i];
+        rep(i, 0, 3)
+        {
+            cin >> v[i];
         }
-        sort(all(v));
-        int64_t t=0;
-        rep(i,0,2){
-            t+=v[2]-v[i];
-        }
-        bool ok=true,f=false;
-        int64_t tmp=1,s=0;
-        while(ok){
-            s+=tmp;
-            if(s%t==0){
-                f=true;
-                ok=false;
-                break;
-            }
-            else if(s>t){
-                ok=false;
-            }
-            else{
-                tmp*=2;
-            }
-        }
-
-        if(f){
-            cout<<"YES";
-        }
-        else{
-            cout<<"NO";
-        }
-        cout<<endl;
+        cout << fun(v[0], v[1], v[2]);
+        cout << endl;
     }
     return 0;
 }
